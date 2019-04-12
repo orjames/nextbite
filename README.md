@@ -1,5 +1,5 @@
 # nextbite
-## MongoExpressReactNode.js Project. Done using TypeScript
+## Mongo-Express-React-Node.js Project. Done using TypeScript
 
 ### Overview
 
