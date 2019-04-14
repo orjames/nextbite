@@ -19,12 +19,12 @@ const loginLimiter = new RateLimit({
 
 const signupLimiter = new RateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 3,
+  max: 8,
   delayMs: 0, // disabled
   message: 'max number of accounts created please try later (begone hacker!)',
 });
 
-mongoose.connect('mongodb://localhost/jwtAuth', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost/nextbite', { useNewUrlParser: true });
 const db = mongoose.connection;
 db.once('open', () => {
   console.log(`Connected to mongo on ${db.host}:${db.port}`);
