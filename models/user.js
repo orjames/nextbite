@@ -19,7 +19,7 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: [true, 'You must enter a password!'],
-    minlength: [8, 'password must be between 10 and 128 characters'],
+    minlength: [2, 'password must be between 10 and 128 characters'],
     maxlength: [128, 'password must be between 10 and 128 characters'],
   },
   email: {
@@ -35,6 +35,16 @@ const userSchema = new Schema({
       message: (props) => `${props.value} is not a valid email`,
     },
   },
+  isCompany: {
+    type: String,
+    required: [true, 'Please indicate if you are a company or user'],
+  },
+  company: {
+    type: String,
+    minlength: [1, 'company name must be between 1 and 128 characters'],
+    maxlength: [128, 'company name must be between 10 and 128 characters'],
+  },
+  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
 });
 
 // this returns an object without a password
@@ -46,6 +56,9 @@ userSchema.set('toObject', {
       email: ret.email,
       firstName: ret.firstName,
       lastName: ret.lastName,
+      isCompany: ret.isCompany,
+      company: ret.company,
+      posts: ret.posts,
     };
     return returnJson; //this removes the password every time we want this to be
   },
