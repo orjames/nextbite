@@ -69,7 +69,10 @@ router.post('/login', (req, res) => {
           token,
         });
       } else {
-        res.json({ type: 'error', message: 'authentication failure' });
+        res.json({
+          type: 'error',
+          message: 'authentication failure - wrong password',
+        });
       }
     }
   });

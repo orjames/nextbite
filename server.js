@@ -33,10 +33,11 @@ db.on('error', (err) => {
   console.log(`database error:\n${err}`);
 });
 
-app.use('auth/login', loginLimiter);
+app.use('/auth/login', loginLimiter);
 app.use('/auth/signup', signupLimiter);
 
 app.use('/auth', require('./routes/auth'));
+app.use('/api', require('./routes/api'));
 app.use(
   '/locked',
   expressJWT({ secret: process.env.JWT_SECRET }).unless({ method: 'POST' }),

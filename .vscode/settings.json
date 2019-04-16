@@ -12,5 +12,8 @@
     "statusBar.background": "#13321d",
     "statusBarItem.hoverBackground": "#215732",
     "statusBar.foreground": "#e7e7e7"
-  }
+  },
+  "cSpell.words": [
+    "uploader"
+  ]
 }

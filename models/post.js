@@ -23,9 +23,9 @@ const postSchema = new Schema(
       maxlength: [99, 'First Name must be between 1 and 99 characters'],
     },
     tags: [String],
-    default: function() {
-      return new Date().getHours();
-    },
+    // default: function() {
+    //   return new Date().getHours();
+    // },
   },
   {
     timestamps: true,

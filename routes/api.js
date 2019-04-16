@@ -1,15 +1,42 @@
 const express = require('express');
 const router = express.Router();
 const cloudinary = require('cloudinary');
+const formData = require('express-form-data');
+const cors = require('cors');
 require('dotenv').config();
 const User = require('../models/user');
 const Post = require('../models/post');
 
+// image stuff below
+// configuring cloudinary to user specific cloud name, API_KEY, and API_SECRET
 cloudinary.config({
   cloud_name: 'orjames',
   api_key: process.env.REACT_APP_CLOUDINARY_API_KEY,
   api_secret: process.env.REACT_APP_CLOUDINARY_API_SECRET,
 });
+let clientOrigin =
+  process.env.NODE_ENV === 'production'
+    ? 'https://orj-mern-project.herokuapp.com'
+    : 'http://localhost:3000';
+
+router.use(
+  cors({
+    origin: clientOrigin,
+  })
+);
+router.use(formData.parse());
+
+// POST /image-upload posts the image
+router.post('/image-upload', (req, res) => {
+  const values = Object.values(req.files);
+  const promises = values.map((image) =>
+    cloudinary.uploader.upload(image.path)
+  );
+  Promise.all(promises)
+    .then((results) => res.json(results))
+    .catch((err) => res.status(400).json(err));
+});
+// image stuff above
 
 // GET /users/:id - GET one user
 router.get('/users/:id', (req, res) => {
@@ -68,3 +95,5 @@ router.post('/users/:uid/posts', (req, res) => {
       });
     });
 });
+
+module.exports = router;
