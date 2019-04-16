@@ -15,7 +15,7 @@ const postSchema = new Schema(
       minlength: [1, 'Caption must be between 1 and 99 characters'],
       maxlength: [99, 'Caption must be between 1 and 99 characters'],
     },
-    location: String,
+    location: Object,
     company: {
       type: String,
       required: true,
