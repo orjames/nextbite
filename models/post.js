@@ -6,7 +6,7 @@ const postSchema = new Schema(
     publicId: {
       type: String,
       required: true,
-      minlength: [1, 'First Name must be between 1 and 99 characters'],
+      minlength: [1, 'PhotoId must be between 1 and 99 characters'],
       maxlength: [99, 'PhotoId must be between 1 and 99 characters'],
     },
     caption: {
@@ -19,13 +19,11 @@ const postSchema = new Schema(
     company: {
       type: String,
       required: true,
-      minlength: [1, 'Company name must be between 1 and 99 characters'],
-      maxlength: [99, 'First Name must be between 1 and 99 characters'],
+      minlength: [1, 'restaurant name must be between 1 and 99 characters'],
+      maxlength: [99, 'restaurant name must be between 1 and 99 characters'],
     },
     tags: [String],
-    // default: function() {
-    //   return new Date().getHours();
-    // },
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
   },
   {
     timestamps: true,

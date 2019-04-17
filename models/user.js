@@ -45,6 +45,7 @@ const userSchema = new Schema({
     maxlength: [128, 'company name must be between 10 and 128 characters'],
   },
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
+  favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
 });
 
 // this returns an object without a password
@@ -59,6 +60,7 @@ userSchema.set('toObject', {
       isCompany: ret.isCompany,
       company: ret.company,
       posts: ret.posts,
+      favorites: ret.favorites,
     };
     return returnJson; //this removes the password every time we want this to be
   },

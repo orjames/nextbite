@@ -116,6 +116,4 @@ router.post('/me/from/token', (req, res) => {
   }
 });
 
-// Route for logout
-
 module.exports = router;
