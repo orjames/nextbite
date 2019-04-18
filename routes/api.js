@@ -53,7 +53,7 @@ router.put('/users/:userId/favorite', (req, res) => {
             .populate('favorites')
             .exec((err, favorites) => {
               if (err) {
-                return res.status(500).send(err);
+                return res.status(500).json({ type: 'error', message: err });
               } else {
                 res.status(200).json(favorites);
               }
@@ -113,7 +113,7 @@ router.get('/users/:uid/posts', (req, res) => {
     .populate('posts')
     .exec((err, user) => {
       if (err) {
-        return res.status(500).send(err);
+        return res.status(500).json({ type: 'error', message: err });
       } else {
         res.json(user.posts); //res.json(user) for whole user object
       }
@@ -151,7 +151,7 @@ router.get('/posts/:pid/comments', (req, res) => {
     .populate('comments')
     .exec((err, post) => {
       if (err) {
-        return res.status(500).send(err);
+        return res.status(500).json({ type: 'error', message: err });
       } else {
         res.json(post.comments); //res.json(post) for whole post object
       }
@@ -175,7 +175,7 @@ router.post('/posts/:pid/comments', (req, res) => {
           .populate('comments')
           .exec((err, posts) => {
             if (err) {
-              return res.status(500).send(err);
+              return res.status(500).json({ type: 'error', message: err });
             } else {
               res.status(200).json(posts);
             }
@@ -206,7 +206,7 @@ router.delete('/users/:userId/posts/:pid', (req, res) => {
             .populate('comments')
             .exec((err, posts) => {
               if (err) {
-                return res.status(500).send(err);
+                return res.status(500).json({ type: 'error', message: err });
               } else {
                 res.status(200).json(posts);
               }
