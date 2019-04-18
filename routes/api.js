@@ -45,12 +45,20 @@ router.put('/users/:userId/favorite', (req, res) => {
     { _id: req.params.userId },
     { $set: { favorites: req.body.favorites } },
     (err, user) => {
-      console.log('in findByIdAndUpdate of update route');
       if (err) {
         throw err;
       } else {
-        console.log('in the else statement of /:userId/posts/:pid');
-        res.status(200).json(user);
+        user.save((err, user) => {
+          User.findById(req.params.userId)
+            .populate('favorites')
+            .exec((err, favorites) => {
+              if (err) {
+                return res.status(500).send(err);
+              } else {
+                res.status(200).json(favorites);
+              }
+            });
+        });
       }
     }
   );
@@ -169,7 +177,7 @@ router.post('/posts/:pid/comments', (req, res) => {
             if (err) {
               return res.status(500).send(err);
             } else {
-              res.json(posts);
+              res.status(200).json(posts);
             }
           });
       });
@@ -191,9 +199,19 @@ router.delete('/users/:userId/posts/:pid', (req, res) => {
       if (err) {
         throw err;
       } else {
-        console.log('in the else statement of /:userId/posts/:pid');
+        console.log('in the else statement of delete/api/:userId/posts/:pid');
         user.update({ $pull: { posts: { _id: req.params.pid } } });
-        res.status(200).json({ message: 'it wokred' });
+        user.save((err, post) => {
+          Post.find({})
+            .populate('comments')
+            .exec((err, posts) => {
+              if (err) {
+                return res.status(500).send(err);
+              } else {
+                res.status(200).json(posts);
+              }
+            });
+        });
       }
     });
   });
