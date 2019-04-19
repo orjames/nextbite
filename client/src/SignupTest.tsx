@@ -192,13 +192,11 @@ class Signup extends Component<IAuthProps, IAuthState> {
             </label>
           </div>
           {field}
-
           <button className='none' type='submit' value='signup'>
             <div className='container-2'>
               <div className='flex center btn btn-two'>signup</div>
             </div>
           </button>
-          {/* <input className='auth-button btn-5' type='submit' value='signup' /> */}
         </form>
         <p>{this.state.message}</p>
       </section>

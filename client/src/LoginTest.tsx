@@ -107,7 +107,11 @@ class LoginTest extends Component<IAuthProps, IAuthState> {
               password
             </label>
           </div>
-          <input className='auth-button' type='submit' value='login' />
+          <button className='none' type='submit' value='login'>
+            <div className='container-2'>
+              <div className='flex center btn btn-two'>login</div>
+            </div>
+          </button>
         </form>
         <p>{this.state.message}</p>
       </section>
