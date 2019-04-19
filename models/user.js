@@ -41,8 +41,9 @@ const userSchema = new Schema({
   },
   company: {
     type: String,
-    minlength: [1, 'company name must be between 1 and 128 characters'],
+    minlength: [0, 'company name must be between 0 and 128 characters'],
     maxlength: [128, 'company name must be between 10 and 128 characters'],
+    required: false,
   },
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
   favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],

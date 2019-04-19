@@ -25,9 +25,7 @@ router.post('/signup', (req, res) => {
       });
       user.save((err, user) => {
         if (err) {
-          res
-            .status(400)
-            .json({ type: 'error', message: 'database error creating user' });
+          res.status(400).json({ type: 'error', message: err.message });
         } else {
           // sign a token (this is the login step)
           // The toObject() takes the password out
