@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import CommentIcon from './images/comment-regular';
 import PlusIcon from './images/plus-solid';
+import CloseIcon from './images/window-close-regular';
 
 class FeedCreateComment extends React.Component<any, any> {
   constructor(props: any) {
@@ -60,25 +61,45 @@ class FeedCreateComment extends React.Component<any, any> {
     let postId: string = this.props.post._id;
     if (this.state.commenting) {
       form = (
-        <div>
-          <form onSubmit={(e: any) => this.handleSubmit(e, postId)}>
-            <input
-              onChange={this.handleInputChange}
-              value={this.state.comment}
-              type='text'
-              name='body'
-              placeholder='comment...'
-              required
-            />
-            <br />
-            <input className='button' type='submit' value='create comment' />
+        <div className='ml-2 flex column align-center full-width'>
+          <form
+            className='full-width'
+            onSubmit={(e: any) => this.handleSubmit(e, postId)}
+          >
+            <div className='input-container mb-2 mt-6'>
+              <input
+                onChange={this.handleInputChange}
+                value={this.state.body}
+                name='body'
+                id='body'
+                className='input'
+                type='text'
+                pattern='.+'
+                required
+              />
+              <label className='label' htmlFor='body'>
+                comment
+              </label>
+            </div>
+            <div className='flex space-between'>
+              <button className='fav-button' type='submit' value='submit'>
+                <PlusIcon width={'1.3rem'} />
+                <CommentIcon width={'1.3rem'} />
+              </button>
+              <button
+                className='fav-button'
+                value='cancel'
+                onClick={this.changeCommenting}
+              >
+                <CloseIcon width={'1.3rem'} />
+              </button>
+            </div>
           </form>
-          <button onClick={this.changeCommenting}>cancel</button>
         </div>
       );
     } else {
       form = (
-        <div className='flex row align-center'>
+        <div className='ml-2 flex row align-center'>
           <button className='fav-button' onClick={this.changeCommenting}>
             <PlusIcon width={'1.3rem'} />
             <CommentIcon width={'1.3rem'} />
@@ -87,7 +108,7 @@ class FeedCreateComment extends React.Component<any, any> {
       );
     }
 
-    return <div className='ml-2'>{form}</div>;
+    return <>{form}</>;
   }
 }
 

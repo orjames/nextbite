@@ -151,6 +151,9 @@ header {
 .mb-1 {
   margin-bottom: 0.2rem;
 }
+.mb-2 {
+  margin-bottom: 0.4rem;
+}
 .mb-4 {
   margin-bottom: 0.8rem;
 }
@@ -216,6 +219,9 @@ header {
 }
 .un-fav-button:hover path {
   fill: rgb(228, 222, 222);
+}
+.full-width {
+  width: 100%;
 }
 
 /* /* create post specific */

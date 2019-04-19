@@ -6,6 +6,8 @@ import Spinner from './Spinner';
 import Images from './Images';
 import Buttons from './Buttons';
 import TagsInput from './TagsInput';
+import PlusIcon from './images/plus-solid';
+import ImageIcon from './images/image-solid';
 
 class CreatePost extends React.Component<any, any> {
   constructor(props: any) {
@@ -173,9 +175,12 @@ class CreatePost extends React.Component<any, any> {
 
     if (this.state.publicId) {
       form = (
-        <div className='flex column align-center mt-8'>
-          <form onSubmit={(e: any) => this.handleSubmit(e, userId)}>
-            <div className='input-container mb-8'>
+        <div className='flex column align-center mt-6 full-width'>
+          <form
+            className='full-width'
+            onSubmit={(e: any) => this.handleSubmit(e, userId)}
+          >
+            <div className='input-container mb-4'>
               <input
                 onChange={this.handleInputChange}
                 value={this.state.caption}
@@ -191,7 +196,10 @@ class CreatePost extends React.Component<any, any> {
               </label>
             </div>
             {select}
-            <input className='button' type='submit' value='create post' />
+            <button className='fav-button' type='submit' value='create post'>
+              <PlusIcon width={'1.3rem'} />
+              <ImageIcon width={'1.3rem'} />
+            </button>
           </form>
         </div>
       );
@@ -201,7 +209,7 @@ class CreatePost extends React.Component<any, any> {
 
     return (
       <div className='max-width flex column align-center mb-10'>
-        <h3>create a new post:</h3>
+        <div className='toggle fancy'>create a new post:</div>
         {uploader()}
         {form}
       </div>
