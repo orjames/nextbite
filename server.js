@@ -10,6 +10,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(helmet());
 
+// heroku deployment line this tells express to find out react app
+// and any of its static files inside client/build directory.
+// this directory is created from heroku postbuild in server package.json
+app.use(express.static(__dirname + '/client/build'));
+
 const loginLimiter = new RateLimit({
   windowMs: 5 * 60 * 1000, // 5 mins
   max: 4, // login attempts
@@ -24,7 +29,12 @@ const signupLimiter = new RateLimit({
   message: 'max number of accounts created please try later (begone hacker!)',
 });
 
-mongoose.connect('mongodb://localhost/nextbite', { useNewUrlParser: true });
+// pre heroku - line, switch back to edit
+// mongoose.connect('mongodb://localhost/nextbite', { useNewUrlParser: true });
+
+// Heroku line lets us use the Mongo URL that is created for us by mLab - heroku
+mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
+
 const db = mongoose.connection;
 db.once('open', () => {
   console.log(`Connected to mongo on ${db.host}:${db.port}`);
@@ -49,4 +59,9 @@ app.listen(process.env.PORT, () => {
     '\x1b[36m%s\x1b[0m',
     `* * * ♿♿ spinning on ${process.env.PORT} ♿♿ * * *`
   );
+});
+
+// heroku route, tells other routes to serve react app page
+app.get('*', function(req, res) {
+  res.sendFile(__dirname + '/client/build/index.html');
 });

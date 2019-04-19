@@ -105,10 +105,10 @@ buttons
   line-height: 64px;
   font-family: 'Poppins', sans-serif;
   transition: all 0.3s;
-  span {
+  /* span {
     transition: all 0.3s;
     tranform: scale(1, 1);
-  }
+  } */
 }
 
 .btn:active {
