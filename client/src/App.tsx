@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Signup from './Signup';
 import SignupTest from './SignupTest';
-import Login from './Login';
 import LoginTest from './LoginTest';
 import Home from './Home';
 import UserProfile from './UserProfile';
@@ -108,6 +106,15 @@ class App extends React.Component<IAppProps, IAppState> {
         this.setState({
           userLocation: location,
         });
+      });
+    } else {
+      let location = {
+        lat: 37.7749,
+        long: 122.4194,
+        accuracy: 100,
+      };
+      this.setState({
+        userLocation: location,
       });
     }
   };
