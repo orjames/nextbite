@@ -7,6 +7,11 @@ Have you ever been in a situation where you and your friend/spouse/partner/whate
 
 ##### First, Screenshots of the (still unfinished) product: 
 
+| Tables        | Are           |
+| :-------------: |:-------------:|
+| <img src="https://github.com/orjames/nextbite/blob/master/client/src/images/screenshot1.JPG" height="400" />| <img src="https://github.com/orjames/nextbite/blob/master/client/src/images/screenshot2.JPG" height="400" /> |
+| <img src="https://github.com/orjames/nextbite/blob/master/client/src/images/screenshot3.JPG" height="400" /> | <img src="https://github.com/orjames/nextbite/blob/master/client/src/images/screenshot4.JPG" height="400" /> |
+
 <img src="https://github.com/orjames/nextbite/blob/master/client/src/images/screenshot1.JPG" height="400" />
 <img src="https://github.com/orjames/nextbite/blob/master/client/src/images/screenshot2.JPG" height="400" />
 <img src="https://github.com/orjames/nextbite/blob/master/client/src/images/screenshot3.JPG" height="400" />
