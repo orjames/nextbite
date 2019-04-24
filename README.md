@@ -11,16 +11,13 @@ Have you ever been in a situation where you and your friend/spouse/partner/whate
 | <img src="https://github.com/orjames/nextbite/blob/master/client/src/images/screenshot1.JPG" height="400" width='300' />| <img src="https://github.com/orjames/nextbite/blob/master/client/src/images/screenshot2.JPG" height="400" /> |
 | <img src="https://github.com/orjames/nextbite/blob/master/client/src/images/screenshot3.JPG" height="400" /> | <img src="https://github.com/orjames/nextbite/blob/master/client/src/images/screenshot4.JPG" height="400" /> |
 
-<img src="https://github.com/orjames/nextbite/blob/master/client/src/images/screenshot1.JPG" height="400" />
-<img src="https://github.com/orjames/nextbite/blob/master/client/src/images/screenshot2.JPG" height="400" />
-<img src="https://github.com/orjames/nextbite/blob/master/client/src/images/screenshot3.JPG" height="400" />
-<img src="https://github.com/orjames/nextbite/blob/master/client/src/images/screenshot4.JPG" height="400" />
-
-
 ---
 
 ### WireFrames/ERD
 
+I started with a basic concept of how the data structures would look and how they are related, then made a few revisions as I sorted through what additional data would be needed and what was unnecesary.
+This was my first draft:
+<img src="https://github.com/orjames/nextbite/blob/master/client/src/images/erd-draft.JPG" height="400" />
 
 ---
 
