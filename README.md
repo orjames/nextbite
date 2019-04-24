@@ -18,6 +18,8 @@ Have you ever been in a situation where you and your friend/spouse/partner/whate
 I started with a basic concept of how the data structures would look and how they are related, then made a few revisions as I sorted through what additional data would be needed and what was unnecesary.
 This was my first draft:
 <img src="https://github.com/orjames/nextbite/blob/master/client/src/images/erd-draft.JPG" height="400" />
+Now cleaned up a bit:
+<img src="https://github.com/orjames/nextbite/blob/master/client/src/images/erd-final.JPG" height="400" />
 
 ---
 
