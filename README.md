@@ -6,7 +6,7 @@
 Have you ever been in a situation where you and your friend/spouse/partner/whatever want to go out for dinner but can't think of what to get? Of course you have. Nextbite ends your indecisiveness and hunger by providing you with a 'feed' of photos of food. These photos can only be posted by local companies, and usually offer deals. User's scroll until they find something that catches their eye. Think instagram for food.
 
 First, Screenshots of the (still unfinished) product: 
-![alt text](https://github.com/orjames/nextbite/blob/master/client/src/images/screenshot1.JPG "Screenshot1")
+![alt text](https://github.com/orjames/nextbite/blob/master/client/src/images/screenshot1.JPG | width=100 "Screenshot1")
 ![alt text](https://github.com/orjames/nextbite/blob/master/client/src/images/screenshot2.JPG "Screenshot2")
 ![alt text](https://github.com/orjames/nextbite/blob/master/client/src/images/screenshot3.JPG "Screenshot3")
 ![alt text](https://github.com/orjames/nextbite/blob/master/client/src/images/screenshot4.JPG "Screenshot4")
