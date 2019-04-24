@@ -53,7 +53,11 @@ class App extends React.Component<IAppProps, IAppState> {
       user: null,
       errorMessage: '',
       lockedResult: '',
-      userLocation: null,
+      userLocation: {
+        lat: 37.7749,
+        long: 122.4194,
+        accuracy: 100,
+      },
     };
     this.liftTokenToState = this.liftTokenToState.bind(this);
     this.checkForLocalToken = this.checkForLocalToken.bind(this);
