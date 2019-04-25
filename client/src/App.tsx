@@ -21,6 +21,7 @@ interface IUser {
   message: string;
   isCompany: string;
   company: string;
+  posts: object[];
 }
 
 interface ILocation {
@@ -94,13 +95,8 @@ class App extends React.Component<IAppProps, IAppState> {
     }
   };
 
-  componentDidMount() {
-    this.checkForLocalToken();
-    this.getLocation();
-  }
-
   getLocation = () => {
-    if (navigator.geolocation) {
+    if (navigator && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         let location = {
           lat: position.coords.latitude,
@@ -122,6 +118,11 @@ class App extends React.Component<IAppProps, IAppState> {
       });
     }
   };
+
+  componentDidMount() {
+    this.checkForLocalToken();
+    this.getLocation();
+  }
 
   liftTokenToState = (data: any) => {
     this.setState({

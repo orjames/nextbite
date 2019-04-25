@@ -42,13 +42,13 @@ class LoginTest extends Component<IAuthProps, IAuthState> {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleInputChange = (e: any) => {
+  handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
   };
 
-  handleSubmit = (e: any) => {
+  handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     axios
       .post('/auth/login', {

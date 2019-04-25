@@ -1,3 +1,4 @@
+// prettier-ignore
 export const tagTypes: string[] = [
   'Select Tag...',
   'Acai Bowls',
@@ -399,6 +400,6 @@ export const tagTypes: string[] = [
   'Yucatan',
   'Yugoslav',
   'Zapiekanka',
-];
+]
 
 export default { tagTypes };

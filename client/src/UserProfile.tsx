@@ -10,6 +10,7 @@ interface IUser {
   message: string;
   isCompany: string;
   company: string;
+  posts: object[];
 }
 interface IProfileProps {
   user: IUser | null;
@@ -18,14 +19,40 @@ interface IProfileProps {
 
 const UserProfile = (props: IProfileProps) => {
   if (props.user !== null && props.user !== undefined) {
+    let greeting;
+    if (props.user.company !== '') {
+      greeting = (
+        <div>
+          <div>
+            <span className='bold'>name: </span>
+            {props.user.firstName} {props.user.lastName}
+          </div>
+          <div>
+            <span className='bold'>company: </span> {props.user.company}
+          </div>
+        </div>
+      );
+    } else {
+      greeting = (
+        <div>
+          <span className='bold'>name: </span>
+          {props.user.firstName} {props.user.lastName}
+        </div>
+      );
+    }
     return (
-      <div className='UserProfile'>
-        <p>hello I am {props.user.firstName}</p>
-        <Router>
-          <Link to='/' onClick={props.logout}>
-            Logout
-          </Link>
-        </Router>
+      <div className='flex column'>
+        <div>{greeting}</div>
+        <div>
+          <span className='bold'>posts: </span> {props.user.posts.length}
+        </div>
+        <div className='flex center'>
+          <Router>
+            <Link to='/' onClick={props.logout}>
+              Logout
+            </Link>
+          </Router>
+        </div>
       </div>
     );
   } else {

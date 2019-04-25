@@ -49,13 +49,14 @@ class Signup extends Component<IAuthProps, IAuthState> {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleInputChange = (e: any) => {
+  // prettier-ignore
+  handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
   };
 
-  handleSubmit = (e: any) => {
+  handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     axios
       .post('/auth/signup', {
@@ -103,7 +104,7 @@ class Signup extends Component<IAuthProps, IAuthState> {
             pattern='.+'
           />
           <label className='label' htmlFor='company'>
-            company name
+            restaurant name
           </label>
         </div>
       );
@@ -113,7 +114,7 @@ class Signup extends Component<IAuthProps, IAuthState> {
       <section>
         <h1>create a new account</h1>
         <form className='' onSubmit={this.handleSubmit}>
-          <div className='input-container mb-8'>
+          <div className='input-container mb-6'>
             <label className='mb-1 non-absolute' htmlFor='isCompany'>
               are you signing up on behalf of a restaurant?
             </label>
@@ -131,6 +132,7 @@ class Signup extends Component<IAuthProps, IAuthState> {
               <option value='restaurant'>Restaurant</option>
             </select>
           </div>
+          {field}
           <div className='input-container mb-8'>
             <input
               onChange={this.handleInputChange}
@@ -191,7 +193,6 @@ class Signup extends Component<IAuthProps, IAuthState> {
               choose password
             </label>
           </div>
-          {field}
           <button className='none' type='submit' value='signup'>
             <div className='container-2'>
               <div className='flex center btn btn-two'>signup</div>

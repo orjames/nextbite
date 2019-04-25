@@ -134,7 +134,11 @@ class CreatePost extends React.Component<any, any> {
     const uploader = () => {
       switch (true) {
         case uploading:
-          return <Spinner />;
+          return (
+            <div>
+              <Spinner />
+            </div>
+          );
         case images.length > 0:
           return (
             <Images
@@ -153,7 +157,7 @@ class CreatePost extends React.Component<any, any> {
     if (this.state.tags.length === 0) {
       select = (
         <div>
-          <TagsInput num={0} handleTagsChange={this.handleTagsChange} />;
+          <TagsInput num={0} handleTagsChange={this.handleTagsChange} />
         </div>
       );
     } else if (this.state.tags.length === 1) {
@@ -173,7 +177,7 @@ class CreatePost extends React.Component<any, any> {
       );
     }
 
-    if (this.state.publicId) {
+    if (this.state.publicId && this.state.uploading === false) {
       form = (
         <div className='flex column align-center mt-6 full-width'>
           <form

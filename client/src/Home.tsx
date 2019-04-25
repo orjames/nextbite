@@ -82,12 +82,12 @@ class Home extends React.Component<IHomeProps, IHomeState> {
 
   // change feed to view favorites or feed
   changeFeed = () => {
-    this.setState((prevState: any) => ({
+    this.setState((prevState: IHomeState) => ({
       favoritesSelected: !prevState.favoritesSelected,
     }));
   };
 
-  refreshPosts = (postData: any) => {
+  refreshPosts = (postData: Array<IPost>) => {
     this.setState({
       posts: postData,
     });
@@ -143,14 +143,14 @@ class Home extends React.Component<IHomeProps, IHomeState> {
 
   // remove from favorites
   removeFromFavorites = (inputPost: IPost) => {
-    let favorites: any;
+    let favorites: IPost[];
     if (this.state.favorites === null) {
       favorites = [];
     } else {
       favorites = Array.from(this.state.favorites);
     }
     let filteredFavorites = [];
-    filteredFavorites = favorites.filter((post: any) => {
+    filteredFavorites = favorites.filter((post: IPost) => {
       return post.publicId !== inputPost.publicId;
     });
     axios
