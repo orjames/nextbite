@@ -3,6 +3,8 @@
 
 ### Overview
 
+[First, deployed live link](https://nextbite.herokuapp.com/)
+
 Have you ever been in a situation where you and your friend/spouse/partner/whatever want to go out for dinner but can't think of what to get? Of course you have. Nextbite ends your indecisiveness and hunger by providing you with a 'feed' of photos of food. These photos can only be posted by local companies, and usually offer deals. User's scroll until they find something that catches their eye. Think instagram for food.
 
 ##### First, Screenshots of the (still unfinished) product: 
