@@ -72,6 +72,30 @@ class LoginTest extends Component<IAuthProps, IAuthState> {
       });
   };
 
+  handleSubmitGuest = (e: React.FormEvent) => {
+    e.preventDefault();
+    axios
+      .post('/auth/login', {
+        email: 'guestuser@gmail.com',
+        password: 'password123',
+      })
+      .then((res) => {
+        if (res.data.type === 'error') {
+          this.setState({
+            message: res.data.message,
+          });
+        } else {
+          localStorage.setItem('mernToken', res.data.token);
+          this.props.liftTokenToState(res.data);
+        }
+      })
+      .catch((err) => {
+        this.setState({
+          message: err.response.data.message,
+        });
+      });
+  };
+
   render() {
     return (
       <section>
@@ -110,6 +134,13 @@ class LoginTest extends Component<IAuthProps, IAuthState> {
           <button className='none' type='submit' value='login'>
             <div className='container-2'>
               <div className='flex center btn btn-two'>login</div>
+            </div>
+          </button>
+        </form>
+        <form onSubmit={this.handleSubmitGuest}>
+          <button className='none' type='submit' value='login'>
+            <div className='container-2 mt-10'>
+              <div className='flex center btn btn-two'>guest</div>
             </div>
           </button>
         </form>
