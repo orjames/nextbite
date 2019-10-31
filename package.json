@@ -21,7 +21,7 @@
     "express-rate-limit": "^3.4.0",
     "helmet": "^3.16.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.5.12",
+    "mongoose": "^5.7.5",
     "react-router-dom": "^5.0.0"
   }
 }
