@@ -183,3 +183,4 @@ handleSubmit = (e: any, postId: string) => {
 ### Getting started
 
 cd into nextbite and run yarn start
+cd into nextbite/client and run nodemon
