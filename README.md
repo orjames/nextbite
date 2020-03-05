@@ -189,8 +189,12 @@ connecting to heroku:
 install heroku CLI
 
 add a remote to your local repository:
-heroku git:remote -a nextbite
+  heroku git:remote -a nextbite
+
+getting the URI for the mongodb:
+  heroku config:get MONGODB_URI
+    put that as the MONGODB_URI in your .env file
 
 Deploying code:
-git push heroku master
+  git push heroku master
 
