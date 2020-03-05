@@ -185,6 +185,12 @@ handleSubmit = (e: any, postId: string) => {
 cd into nextbite and run yarn start
 cd into nextbite/client and run nodemon
 
-connecting to heroku
+connecting to heroku:
 install heroku CLI
+
+add a remote to your local repository:
 heroku git:remote -a nextbite
+
+Deploying code:
+git push heroku master
+
