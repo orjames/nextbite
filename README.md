@@ -184,3 +184,17 @@ handleSubmit = (e: any, postId: string) => {
 
 cd into nextbite and run yarn start
 cd into nextbite/client and run nodemon
+
+connecting to heroku:
+install heroku CLI
+
+add a remote to your local repository:
+  heroku git:remote -a nextbite
+
+getting the URI for the mongodb:
+  heroku config:get MONGODB_URI
+    put that as the MONGODB_URI in your .env file
+
+Deploying code:
+  git push heroku master
+
