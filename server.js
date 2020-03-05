@@ -32,10 +32,15 @@ const signupLimiter = new RateLimit({
 // pre heroku - line, switch back to edit
 // mongoose.connect('mongodb://localhost/nextbite', { useNewUrlParser: true });
 
+process.env.NODE_ENV === 'production'
+    ? mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+    : mongoose.connect(process.env.MONGODB_LOCAL_URI, { useNewUrlParser: true });
+
 // Heroku line lets us use the Mongo URL that is created for us by mLab - heroku
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+// mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 const db = mongoose.connection;
+console.log(db)
 db.once('open', () => {
   console.log(`Connected to mongo on ${db.host}:${db.port}`);
 });
