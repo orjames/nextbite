@@ -70,6 +70,10 @@
   }
 
   .comment-form-div {
+
+    &.hidden{
+      display: none;
+    }
     .comment-input-container {
     }
 
