@@ -1,15 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 @import url('https://fonts.googleapis.com/css?family=Handlee');
 
-/*
-  black: rgb(37, 37, 37)
-  lighter: rgb(87, 87, 87)
-  gray: rgb(153, 153, 153)
-  red: rgb(170,56,30)
-  white: rgb(255, 243, 228)
-  orange: rgb(166, 79, 3)
-  yellow: rgb(242, 159, 5)
-*/
+$black: rgb(37, 37, 37);
+$lighter: rgb(87, 87, 87);
+$gray: rgb(153, 153, 153);
+$red: rgb(170,56,30);
+$white: rgb(255, 243, 228);
+$orange: rgb(166, 79, 3);
+$yellow: rgb(242, 159, 5);
+$pink: rgb(216, 83, 183);
+
 
 /* General App CSS */
 body {
@@ -18,14 +18,14 @@ body {
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(255, 243, 228);
+  background-color: $white;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
 }
 a {
-  color: rgb(216, 83, 183);
+  color: $pink;
   text-decoration: underline;
   cursor: pointer;
 }
@@ -46,299 +46,39 @@ button:active {
   font-weight: 500;
   max-width: 340px;
   width: 340px;
-}
-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 340px;
-  width: 340px;
-}
-.nav {
-  width: 100%;
-}
-.header {
-  font-family: 'Handlee', cursive;
-  font-size: 3.5rem;
-}
-.bold {
-  font-weight: 900;
-}
-.link {
-  color: rgb(216, 83, 183);
-  text-decoration: underline;
-  cursor: pointer;
-  padding-right: 0.5rem;
-}
-select {
-  height: 3rem;
-  font-size: 1rem;
-  border: none;
-  border-bottom: 2px solid #9e9e9e;
-  margin-bottom: 0.8rem;
-  font-family: 'Poppins', sans-serif;
-}
+  
+  .app-header{
+    font-family: 'Handlee', cursive;
+    display: flex;
+    justify-content: center;
+    
+    .app-title {
+      font-size: 3.5rem;
+      margin: 1rem 1rem 0 0;
+    }
+    .app-logo {
+      width: 55px;
+    }
+  }
 
-/* FlexBox configuration */
-.flex {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-}
-.column {
-  flex-direction: column;
-}
-.no-wrap {
-  flex-wrap: nowrap;
-}
-.flex-start {
-  justify-content: flex-start;
-}
-.center {
-  justify-content: center;
-}
-.space-between {
-  justify-content: space-between;
-}
-.space-evenly {
-  justify-content: space-evenly;
-}
-.align-flex-start {
-  align-items: flex-start;
-}
-.align-center {
-  align-items: center;
-}
-.border {
-  border: 0.3rem solid rgba(170, 56, 30, 0.1);
-  border-radius: 0.5rem;
-}
-.border2 {
-  border: 3px solid blue;
-}
-.border3 {
-  border: 3px solid red;
-}
-.border4 {
-  border: 3px solid yellow;
-}
-.border5 {
-  border: 3px solid green;
-}
-.border6 {
-  border: 3px solid purple;
-}
-/* 
-
-/* General */
-.max-width {
-  max-width: 340px;
-  width: 340px;
-}
-.lighter {
-  color: rgb(122, 122, 122);
-}
-.fancy {
-  font-family: 'Handlee', cursive;
-}
-.pd-2 {
-  padding: 0.4rem;
-}
-.mr-1 {
-  margin-right: 0.2rem;
-}
-.mr-2 {
-  margin-right: 0.4rem;
-}
-.ml-1 {
-  margin-left: 0.2rem;
-}
-.ml-2 {
-  margin-left: 0.4rem;
-}
-.mb-1 {
-  margin-bottom: 0.2rem;
-}
-.mb-2 {
-  margin-bottom: 0.4rem;
-}
-.mb-4 {
-  margin-bottom: 0.8rem;
-}
-.mb-6 {
-  margin-bottom: 1.2rem;
-}
-.mb-8 {
-  margin-bottom: 1.6rem;
-}
-.mb-10 {
-  margin-bottom: 2rem;
-}
-.mt-2 {
-  margin-top: 0.4rem;
-}
-.mt-4 {
-  margin-top: 0.8rem;
-}
-.mt-6 {
-  margin-top: 1.2rem;
-}
-.mt-8 {
-  margin-top: 1.6rem;
-}
-.mt-10 {
-  margin-top: 2rem;
-}
-.mt-12 {
-  margin-top: 2.2rem;
-}
-.mt-14 {
-  margin-top: 2.4rem;
-}
-/* Login/Signup Specific */
-.auth-button {
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-.auth-button:hover {
-  color: rgb(170, 56, 30);
-}
-.auth-button:active {
-  /* box-shadow: 0 0px #666; */
-  transform: translateY(2px);
-}
-.auth-input {
-  width: 12rem;
-}
-/* Feed Specific */
-.toggle {
-  font-size: 2rem;
-}
-.feed {
-  max-width: 340px;
-}
-.img-div {
-  width: 100%;
-}
-.top-buttons {
-  width: 100%;
-}
-.fav-button {
-  background: none;
-  border: none;
-}
-.fav-button path {
-  transition: 450ms;
-}
-.fav-button:hover path {
-  fill: rgb(170, 56, 30);
-}
-.un-fav-button:hover path {
-  fill: rgb(228, 222, 222);
-}
-.full-width {
-  width: 100%;
-}
-
-/* /* create post specific */
-input.button {
-  margin: 0;
-}
-
-/* Spinner.jsx-------------------------------------------------------------------- */
-.rolling {
-  position: absolute;
-  animation: move 6s ease-out;
-  filter: drop-shadow(4px 4px 4px #999);
-}
-@-webkit-keyframes move {
-  0% {
-    left: -5%;
+  .app-div {
+    .top-nav {
+      display: flex;
+      justify-content: space-evenly;
+    }
+    .link {
+      color: $pink;
+      text-decoration: underline;
+      cursor: pointer;
+      padding-right: 0.5rem;
+    }
+    select {
+      height: 3rem;
+      font-size: 1rem;
+      border: none;
+      border-bottom: 2px solid #9e9e9e;
+      margin-bottom: 0.8rem;
+      font-family: 'Poppins', sans-serif;
+    }
   }
-  100% {
-    left: 105%;
-  }
-}
-.spinner svg {
-  /* background: #f2f2f2; */
-  border-radius: 50%;
-}
-.fadein {
-  animation: fadein 2s;
-}
-@keyframes fadein {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes pulse-icon {
-  from {
-    text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
-  }
-  to {
-    text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.55);
-  }
-}
-/* Images.jsx ---------------------------------------------------------------------- */
-.images {
-  display: flex;
-  justify-content: center;
-}
-.delete {
-  position: relative;
-  top: 16px;
-  right: 15px;
-}
-.button svg,
-.delete svg {
-  filter: drop-shadow(3px 3px 3px #999);
-  transition: 0.3s;
-  transform: rotate(-0.2deg);
-}
-.button svg:hover,
-.delete svg:hover {
-  filter: drop-shadow(4px 4px 4px #999);
-  transform: rotate(-0.6deg);
-  cursor: pointer;
-}
-.delete svg {
-  filter: drop-shadow(1px 1px 1px #999);
-}
-.delete svg:hover {
-  filter: drop-shadow(1.5px 1.5px 1.5px);
-}
-input[type='file'] {
-  visibility: hidden;
-  position: absolute;
-}
-img {
-  object-fit: contain;
-  /* max-height: 20em;
-  max-width: 20em; */
-}
-.image {
-}
-/* Buttons.tsx------------------------------------------------------------------- */
-.buttons {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  height: 50vh;
-  width: 340px;
-}
-.button {
-  margin: 0 10vw;
-  max-width: 15em;
-  max-height: 10em;
-  text-align: center;
-}
-
-.svg-inline {
-  display: inline;
-  position: absolute;
 }

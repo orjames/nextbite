@@ -61,12 +61,11 @@ class FeedCreateComment extends React.Component<any, any> {
     let postId: string = this.props.post._id;
     if (this.state.commenting) {
       form = (
-        <div className='ml-2 flex column align-center full-width'>
+        <div className='comment-form-div'>
           <form
-            className='full-width'
             onSubmit={(e: any) => this.handleSubmit(e, postId)}
           >
-            <div className='input-container mb-2 mt-6'>
+            <div className='comment-input-container'>
               <input
                 onChange={this.handleInputChange}
                 value={this.state.body}
@@ -81,7 +80,7 @@ class FeedCreateComment extends React.Component<any, any> {
                 comment
               </label>
             </div>
-            <div className='flex space-between'>
+            <div className='comment-button-div'>
               <button className='fav-button' type='submit' value='submit'>
                 <PlusIcon width={'1.3rem'} />
                 <CommentIcon width={'1.3rem'} />
@@ -99,7 +98,7 @@ class FeedCreateComment extends React.Component<any, any> {
       );
     } else {
       form = (
-        <div className='ml-2 flex row align-center'>
+        <div className='comment-button-div'>
           <button className='fav-button' onClick={this.changeCommenting}>
             <PlusIcon width={'1.3rem'} />
             <CommentIcon width={'1.3rem'} />

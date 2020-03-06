@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-interface IUser {
+interface UserInterface {
   _id: string;
   firstName: string;
   lastName: string;
@@ -14,7 +14,7 @@ interface IUser {
 
 interface ILiftToken {
   token: string;
-  user: IUser;
+  user: UserInterface;
   message: string;
 }
 
@@ -41,13 +41,13 @@ class Login extends Component<IAuthProps, IAuthState> {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleInputChange = (e: any) => {
+  handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
   };
 
-  handleSubmit = (e: any) => {
+  handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     axios
       .post('/auth/login', {
@@ -71,31 +71,80 @@ class Login extends Component<IAuthProps, IAuthState> {
       });
   };
 
+  handleSubmitGuest = (e: React.FormEvent) => {
+    e.preventDefault();
+    axios
+      .post('/auth/login', {
+        email: 'guestuser@gmail.com',
+        password: 'password123',
+      })
+      .then((res) => {
+        if (res.data.type === 'error') {
+          this.setState({
+            message: res.data.message,
+          });
+        } else {
+          localStorage.setItem('mernToken', res.data.token);
+          this.props.liftTokenToState(res.data);
+        }
+      })
+      .catch((err) => {
+        this.setState({
+          message: err.response.data.message,
+        });
+      });
+  };
+
   render() {
     return (
-      <div className='flex column align-center'>
-        <h3>log in to your account:</h3>
-        <form className='flex column align-center' onSubmit={this.handleSubmit}>
-          <input
-            onChange={this.handleInputChange}
-            value={this.state.email}
-            type='email'
-            name='email'
-            placeholder='enter your email...'
-            className='mb-1 auth-input'
-          />
-          <input
-            onChange={this.handleInputChange}
-            value={this.state.password}
-            type='password'
-            name='password'
-            placeholder='enter your password...'
-            className='mb-1 auth-input'
-          />
-          <input className='auth-button' type='submit' value='login' />
+      <section>
+        <form onSubmit={this.handleSubmit}>
+          <h1>login</h1>
+          <div className='input-container mb-8'>
+            <input
+              onChange={this.handleInputChange}
+              value={this.state.email}
+              name='email'
+              id='LoginEmail'
+              className='input'
+              type='email'
+              pattern='.+'
+              required
+            />
+            <label className='label' htmlFor='LoginEmail'>
+              email
+            </label>
+          </div>
+          <div className='input-container mb-8'>
+            <input
+              onChange={this.handleInputChange}
+              value={this.state.password}
+              name='password'
+              id='LoginPassword'
+              className='input'
+              type='password'
+              pattern='.+'
+              required
+            />
+            <label className='label' htmlFor='LoginPassword'>
+              password
+            </label>
+          </div>
+          <button className='none' type='submit' value='login'>
+            <div className='container-2'>
+              <div className='flex center btn btn-two'>login</div>
+            </div>
+          </button>
+        </form>
+        <form onSubmit={this.handleSubmitGuest}>
+          <button className='none' type='submit' value='login'>
+            <div className='container-2 mt-10'>
+              <div className='flex center btn btn-two'>guest</div>
+            </div>
+          </button>
         </form>
         <p>{this.state.message}</p>
-      </div>
+      </section>
     );
   }
 }

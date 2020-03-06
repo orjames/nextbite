@@ -1,0 +1,67 @@
+.feed-div {
+  display: flex;
+  flex-direction: column;
+
+  .feed-above-image-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .company-name-div {
+
+    }
+  }
+
+  .distance-div {
+    display: flex;
+    align-items: center;
+    svg {
+      height: 1rem;
+      width: 1rem;
+      margin-right: 0.5rem;
+    }
+  }
+
+  .sub-image-div {
+    display: flex;
+    justify-content: space-between;
+    .sub-image-buttons-div {
+
+    }
+  }
+
+  .feed-post-text-div {
+    .company-and-caption {
+      .company-name {
+        white-space: nowrap;
+        font-weight: bold;
+        margin-right: 0.5rem;
+      }
+      .caption {
+
+      }
+    }
+    .date {
+
+    }
+    .tags {
+
+    }
+  }
+
+
+  .comments-div {
+    .comment{
+
+    }
+  }
+
+  .comment-form-div {
+    .comment-input-container {
+
+    }
+
+    .comment-button-div {
+      
+    }
+  }
+}

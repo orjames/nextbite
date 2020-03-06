@@ -3,13 +3,12 @@ import NavIcon from './images/location-arrow-solid';
 
 const FeedAboveImage = (props: any) => {
   return (
-    <div className='flex row space-between align-center top-buttons mb-1'>
-      <div className='flex'>
-        <span className='bold'>{props.post.company}</span>
+    <div className='feed-above-image-div'>
+      <div className='company-name-div'>
+        {props.post.company}
       </div>
-      <div className='flex row center mr-1'>
+      <div className='distance-div'>
         <NavIcon
-          width={'1.3rem'}
           fill={'rgb(242, 159, 5)'}
           className='fav-button'
         />

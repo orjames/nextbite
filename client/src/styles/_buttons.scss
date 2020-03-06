@@ -1,0 +1,20 @@
+/* Buttons.tsx------------------------------------------------------------------- */
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  height: 50vh;
+  width: 340px;
+}
+.button {
+  margin: 0 10vw;
+  max-width: 15em;
+  max-height: 10em;
+  text-align: center;
+}
+
+.svg-inline {
+  display: inline;
+  position: absolute;
+}

@@ -180,3 +180,50 @@ buttons
     transform: rotate(-360deg);
   }
 }
+
+
+/* Login/Signup Specific */
+.auth-button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.auth-button:hover {
+  color: rgb(170, 56, 30);
+}
+.auth-button:active {
+  /* box-shadow: 0 0px #666; */
+  transform: translateY(2px);
+}
+.auth-input {
+  width: 12rem;
+}
+/* Feed Specific */
+.toggle {
+  font-size: 2rem;
+}
+.feed {
+  max-width: 340px;
+}
+.img-div {
+  width: 100%;
+}
+.top-buttons {
+  width: 100%;
+}
+.fav-button {
+  background: none;
+  border: none;
+}
+.fav-button path {
+  transition: 450ms;
+}
+.fav-button:hover path {
+  fill: rgb(170, 56, 30);
+}
+.un-fav-button:hover path {
+  fill: rgb(228, 222, 222);
+}
+.full-width {
+  width: 100%;
+}

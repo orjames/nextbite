@@ -3,23 +3,17 @@ import moment from 'moment';
 
 const FeedText = (props: any) => {
   return (
-    <div className='flex column flex-start align-flex-start'>
-      <div className='flex'>
-        <span className='bold mr-1'>{props.post.company}</span>
-        {props.post.caption}
+    <div className='feed-post-text-div'>
+      <div className='company-and-caption'>
+        <span className='company-name'>{props.post.company}</span>
+        <span className='caption'>{props.post.caption}</span>
       </div>
-      <div className='flex lighter'>
+      <div className='date'>
         {props.dateConverter(props.post.updatedAt)}
       </div>
-      <div className='flex'>{props.tags}</div>
+      <div className='tags'>{props.tags}</div>
     </div>
   );
 };
 
 export default FeedText;
-
-function convertDate(date: Date) {
-  let m = moment(date);
-  let newDate = m.fromNow();
-  return newDate;
-}

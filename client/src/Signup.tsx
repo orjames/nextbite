@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-interface IUser {
+interface UserInterface {
   _id: string;
   firstName: string;
   lastName: string;
@@ -14,7 +14,7 @@ interface IUser {
 
 interface ILiftToken {
   token: string;
-  user: IUser;
+  user: UserInterface;
   message: string;
 }
 
@@ -48,13 +48,14 @@ class Signup extends Component<IAuthProps, IAuthState> {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleInputChange = (e: any) => {
+  // prettier-ignore
+  handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
   };
 
-  handleSubmit = (e: any) => {
+  handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     axios
       .post('/auth/signup', {
@@ -63,7 +64,7 @@ class Signup extends Component<IAuthProps, IAuthState> {
         email: this.state.email,
         password: this.state.password,
         isCompany: this.state.isCompany,
-        company: this.state.company ? this.state.company : 'none',
+        company: this.state.company,
         posts: [],
         favorites: [],
       })
@@ -91,74 +92,114 @@ class Signup extends Component<IAuthProps, IAuthState> {
     let field;
     if (this.state.isCompany === 'restaurant') {
       field = (
-        <input
-          onChange={this.handleInputChange}
-          value={this.state.company}
-          type='text'
-          name='company'
-          placeholder='enter restaurant name...'
-          className='mb-1 auth-input'
-        />
+        <div className='input-container mb-8'>
+          <input
+            onChange={this.handleInputChange}
+            value={this.state.company}
+            name='company'
+            id='company'
+            className='input'
+            type='text'
+            pattern='.+'
+          />
+          <label className='label' htmlFor='company'>
+            restaurant name
+          </label>
+        </div>
       );
     }
 
     return (
-      <div className='flex column align-center'>
-        <h3>create a new account:</h3>
-        <form className='flex column align-center' onSubmit={this.handleSubmit}>
-          <select
-            onChange={this.handleInputChange}
-            value={this.state.isCompany}
-            name='isCompany'
-            placeholder='Are you signing up on behalf of a restaurant?'
-            className='mb-1 auth-input'
-          >
-            <option value='' disabled>
-              select...
-            </option>
-            <option value='user'>User</option>
-            <option value='restaurant'>Restaurant</option>
-          </select>
-          <label className='' htmlFor='isCompany'>
-            are you signing up on behalf of a restaurant?
-          </label>
-          <input
-            onChange={this.handleInputChange}
-            value={this.state.firstName}
-            type='text'
-            name='firstName'
-            placeholder='your first name...'
-            className='mb-1 auth-input'
-          />
-          <input
-            onChange={this.handleInputChange}
-            value={this.state.lastName}
-            type='text'
-            name='lastName'
-            placeholder='your last name...'
-            className='mb-1 auth-input'
-          />
-          <input
-            onChange={this.handleInputChange}
-            value={this.state.email}
-            type='email'
-            name='email'
-            placeholder='your email...'
-            className='mb-1 auth-input'
-          />
-          <input
-            onChange={this.handleInputChange}
-            value={this.state.password}
-            type='password'
-            name='password'
-            placeholder='choose a password...'
-            className='mb-1 auth-input'
-          />
+      <section>
+        <h1>create a new account</h1>
+        <form className='' onSubmit={this.handleSubmit}>
+          <div className='input-container mb-6'>
+            <label className='mb-1 non-absolute' htmlFor='isCompany'>
+              are you signing up on behalf of a restaurant?
+            </label>
+            <select
+              onChange={this.handleInputChange}
+              value={this.state.isCompany}
+              name='isCompany'
+              placeholder='Are you signing up on behalf of a restaurant?'
+              className=''
+            >
+              <option value='' disabled>
+                select...
+              </option>
+              <option value='user'>User</option>
+              <option value='restaurant'>Restaurant</option>
+            </select>
+          </div>
           {field}
-          <input className='auth-button' type='submit' value='signup' />
+          <div className='input-container mb-8'>
+            <input
+              onChange={this.handleInputChange}
+              value={this.state.firstName}
+              name='firstName'
+              id='firstName'
+              className='input'
+              type='text'
+              pattern='.+'
+              required
+            />
+            <label className='label' htmlFor='firstName'>
+              first name
+            </label>
+          </div>
+          <div className='input-container mb-8'>
+            <input
+              onChange={this.handleInputChange}
+              value={this.state.lastName}
+              name='lastName'
+              id='lastName'
+              className='input'
+              type='text'
+              pattern='.+'
+              required
+            />
+            <label className='label' htmlFor='lastName'>
+              last name
+            </label>
+          </div>
+          <div className='input-container mb-8'>
+            <input
+              onChange={this.handleInputChange}
+              value={this.state.email}
+              name='email'
+              id='email'
+              className='input'
+              type='text'
+              pattern='.+'
+              required
+            />
+            <label className='label' htmlFor='email'>
+              email
+            </label>
+          </div>
+          <div className='input-container mb-8'>
+            <input
+              onChange={this.handleInputChange}
+              value={this.state.password}
+              name='password'
+              id='password'
+              className='input'
+              type='password'
+              pattern='.+'
+              required
+            />
+            <label className='label' htmlFor='password'>
+              choose password
+            </label>
+          </div>
+          <button className='none' type='submit' value='signup'>
+            <div className='container-2'>
+              <div className='flex center btn btn-two'>signup</div>
+            </div>
+          </button>
         </form>
         <p>{this.state.message}</p>
-      </div>
+      </section>
     );
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-interface IUser {
+interface UserInterface {
   _id: string;
   firstName: string;
   lastName: string;
@@ -13,7 +13,7 @@ interface IUser {
   posts: object[];
 }
 interface IProfileProps {
-  user: IUser | null;
+  user: UserInterface | null;
   logout: () => void;
 }
 

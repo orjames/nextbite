@@ -1,14 +1,14 @@
 import React from 'react';
 import moment from 'moment';
-import { IComment } from './react-app-env';
+import { CommentInterface } from './types/react-app-env';
 
 const FeedComments = (props: any) => {
   let comments;
   let commentsData = props.post.comments;
   if (commentsData.length) {
-    comments = commentsData.map((comment: IComment, index: number) => {
+    comments = commentsData.map((comment: CommentInterface, index: number) => {
       return (
-        <div key={index}>
+        <div key={index} className="comment">
           <span className='bold'>{comment.user}</span> {comment.body}{' '}
           <span className='lighter'>{convertDate(comment.updatedAt)}</span>
         </div>
@@ -18,7 +18,7 @@ const FeedComments = (props: any) => {
     comments = <div>no comments</div>;
   }
 
-  return <div className='ml-2'>{comments}</div>;
+  return <div className='comments-div'>{comments}</div>;
 };
 
 export default FeedComments;

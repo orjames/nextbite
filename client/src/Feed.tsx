@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import moment from 'moment';
-import { IPost } from './react-app-env';
+import { PostInterface } from './types/react-app-env';
 import FeedCreateComment from './FeedCreateComment';
 import FeedImage from './FeedImage';
 import FeedFavoriteButton from './FeedFavoriteButton';
@@ -9,6 +8,9 @@ import FeedDeletePost from './FeedDeletePost';
 import NavIcon from './images/location-arrow-solid';
 import FeedText from './FeedText';
 import FeedAboveImage from './FeedAboveImage';
+import { roundNumber } from './functions/roundNumber'
+import { calculateDistance } from './functions/calculateDistance'
+import { convertDate } from './functions/convertDate'
 
 const Feed = (props: any) => {
   let posts;
@@ -20,8 +22,7 @@ const Feed = (props: any) => {
   const dateConverter = convertDate();
   // if there are any posts
   if (props.posts !== null) {
-    posts = props.posts.map((post: IPost, index: number) => {
-      // console.log(post);
+    posts = props.posts.map((post: PostInterface, index: number) => {
 
       let tags = post.tags.map((tag: string, index: number) => {
         return (
@@ -31,11 +32,11 @@ const Feed = (props: any) => {
         );
       });
       return (
-        <div className='feed flex column align-flex-start mb-10' key={index}>
+        <div className='feed-div' key={index}>
           <FeedAboveImage post={post} distance={distance} />
           <FeedImage post={post} />
-          <div className='flex row space-between align-center top-buttons'>
-            <div className=''>
+          <div className='sub-image-div'>
+            <div className='sub-image-buttons-div'>
               <FeedFavoriteButton
                 post={post}
                 user={props.user}
@@ -48,9 +49,8 @@ const Feed = (props: any) => {
                 deletePost={props.deletePost}
               />
             </div>
-            <div className='flex row center mr-1'>
+            <div className='distance-div'>
               <NavIcon
-                width={'1.3rem'}
                 fill={'rgb(242, 159, 5)'}
                 className='fav-button'
               />
@@ -82,50 +82,3 @@ const Feed = (props: any) => {
 };
 
 export default Feed;
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-// local functions
-function convertDate() {
-  return (date: Date) => {
-    let m = moment(date);
-    let newDate = m.fromNow();
-    return newDate;
-  };
-}
-
-function calculateDistance(props: any, round: (num: number) => number) {
-  return (lat1: number, long1: number) => {
-    let lat2 = props.location.lat;
-    let long2 = props.location.long;
-    let R = 6371e3; // metres
-    let φ1 = (lat1 * Math.PI) / 180;
-    let φ2 = (lat2 * Math.PI) / 180;
-    let Δφ = ((lat2 - lat1) * Math.PI) / 180;
-    let Δλ = ((long2 - long1) * Math.PI) / 180;
-    let a =
-      Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-      Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    let d = R * c;
-    d = d / 1609.344; // meters to miles
-    d = round(d);
-    return d;
-  };
-}
-
-function roundNumber() {
-  return (num: number) => {
-    let multiplier = Math.pow(10, 2);
-    return Math.round(num * multiplier) / multiplier;
-  };
-}

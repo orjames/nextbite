@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import SignupTest from './SignupTest';
-import LoginTest from './LoginTest';
+import Signup from './Signup';
+import Login from './Login';
 import Home from './Home';
 import UserProfile from './UserProfile';
 import CreatePost from './CreatePost';
@@ -10,43 +10,26 @@ import Noodles from './images/noodles.svg';
 import HomeIcon from './images/home-solid';
 import ProfileIcon from './images/id-badge-regular';
 import CreateIcon from './images/plus-square-regular';
+import { UserInterface, LocationInterface } from './types/react-app-env';
 
-interface IUser {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  message: string;
-  isCompany: string;
-  company: string;
-  posts: object[];
-}
-
-interface ILocation {
-  lat: number;
-  long: number;
-  accuracy: number;
-}
-
-interface IAppState {
+interface State {
   token: string;
-  user: IUser | null;
+  user: UserInterface | null;
   errorMessage: string;
   lockedResult: string;
-  userLocation: ILocation | null;
+  userLocation: LocationInterface | null;
 }
 
-interface IAppProps {
-  // user?: IUser;
+interface Props {
+  // user?: UserInterface;
 }
 
-class App extends React.Component<IAppProps, IAppState> {
+class App extends React.Component<Props, State> {
   // if you refresh the browser, you lose the state, so we save token in both state and local storage
   // token determines if the user is logged in, will send that token to the back-end every time we need
   // to query the API, as long as that's there, the express JWT module will allow you to access the routes
   // rate limited will make it so you can't attempt to login unsuccessfully many times before it locks you out
-  constructor(props: IAppState) {
+  constructor(props: State) {
     super(props);
     this.state = {
       token: '',
@@ -95,18 +78,7 @@ class App extends React.Component<IAppProps, IAppState> {
   };
 
   getLocation = () => {
-    if (navigator && navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        let location = {
-          lat: position.coords.latitude,
-          long: position.coords.longitude,
-          accuracy: position.coords.accuracy,
-        };
-        this.setState({
-          userLocation: location,
-        });
-      });
-    } else {
+    let error = () => {
       let location = {
         lat: 37.7749,
         long: 122.4194,
@@ -115,6 +87,25 @@ class App extends React.Component<IAppProps, IAppState> {
       this.setState({
         userLocation: location,
       });
+    }
+    let success = (position: any) => {
+      var crd = position.coords;
+
+      console.log('Your current position is:');
+      console.log(`Latitude : ${crd.latitude}`);
+      console.log(`Longitude: ${crd.longitude}`);
+      console.log(`More or less ${crd.accuracy} meters.`);
+      let location = {
+        lat: position.coords.latitude,
+        long: position.coords.longitude,
+        accuracy: position.coords.accuracy,
+      };
+      this.setState({
+        userLocation: location,
+      });
+    }
+    if (navigator && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, error)
     }
   };
 
@@ -157,110 +148,101 @@ class App extends React.Component<IAppProps, IAppState> {
     });
   }
 
-  render() {
-    let user = this.state.user;
-    let contents;
-    if (user) {
-      let navigation;
-      if (user.isCompany === 'restaurant') {
-        navigation = (
-          <div className='nav flex row space-evenly'>
-            <Link to='/'>
-              <HomeIcon className='fav-button' width={'2.3rem'} />
-            </Link>
-            <Link to={`/profile/${user._id}`}>
-              <ProfileIcon className='fav-button' width={'2.3rem'} />
-            </Link>
-            <Link to={`/create-post`}>
-              <CreateIcon className='fav-button' width={'2.3rem'} />
-            </Link>
-          </div>
-        );
-      } else {
-        navigation = (
-          <div className='nav flex row space-evenly'>
-            <Link to='/'>
-              <HomeIcon className='fav-button' width={'2.3rem'} />
-            </Link>
-            <Link to={`/profile/${user._id}`}>
-              <ProfileIcon className='fav-button' width={'2.3rem'} />
-            </Link>
-          </div>
-        );
-      }
-      contents = (
-        <>
-          <header>
-            <div className='header mt-10'>
-              nextbite{' '}
-              <img
-                src={Noodles}
-                alt='noodles'
-                width={'55px'}
-                color={'rgb(228, 222, 222)'}
-              />
-            </div>
-            <Router>
-              {navigation}
-              <Route
-                path='/'
-                exact
-                render={() => (
-                  <Home
-                    user={user as IUser}
-                    logout={this.logout}
-                    userLocation={this.state.userLocation as ILocation}
-                    checkForLocalToken={this.checkForLocalToken}
-                    {...this.props}
-                  />
-                )}
-              />
-              <Route
-                path={`/profile/${user._id}`}
-                exact
-                render={() => (
-                  <UserProfile user={this.state.user} logout={this.logout} />
-                )}
-              />
-              <Route
-                path={`/create-post`}
-                exact
-                render={() => (
-                  <CreatePost
-                    user={this.state.user}
-                    userLocation={this.state.userLocation}
-                    {...this.props}
-                  />
-                )}
-              />
-            </Router>
-          </header>
-        </>
+  generateNavigation = (user: UserInterface) => {
+    if (user.isCompany === 'restaurant') {
+      return (
+        <div className='top-nav'>
+          <Link to='/'>
+            <HomeIcon className='fav-button home-icon home-icon'/>
+          </Link>
+          <Link to={`/profile/${user._id}`}>
+            <ProfileIcon className='fav-button home-icon'/>
+          </Link>
+          <Link to={`/create-post`}>
+            <CreateIcon className='fav-button home-icon'/>
+          </Link>
+        </div>
       );
     } else {
-      contents = (
-        <div className='flex column align-center'>
-          <div className='header mt-10'>
-            nextbite{' '}
-            <img
-              src={Noodles}
-              alt='noodles'
-              width={'55px'}
-              color={'rgb(228, 222, 222)'}
-            />
-          </div>
-          <div className='border pd-2'>
-            {/* <Signup liftTokenToState={this.liftTokenToState} /> */}
-            {/* <Login liftTokenToState={this.liftTokenToState} /> */}
-            <LoginTest liftTokenToState={this.liftTokenToState} />
-            <SignupTest liftTokenToState={this.liftTokenToState} />
-          </div>
+      return (
+        <div className='top-nav'>
+          <Link to='/'>
+            <HomeIcon className='fav-button home-icon'/>
+          </Link>
+          <Link to={`/profile/${user._id}`}>
+            <ProfileIcon className='fav-button home-icon'/>
+          </Link>
         </div>
       );
     }
+  }
+
+  generateRouterOrLogin = (user: UserInterface | null) => {
+    if (user) {
+      return (
+        <div className="app-div">
+          <Router>
+            {this.generateNavigation(user)}
+            <Route
+              path='/'
+              exact
+              render={() => (
+                <Home
+                  user={this.state.user as UserInterface}
+                  logout={this.logout}
+                  userLocation={this.state.userLocation as LocationInterface}
+                  checkForLocalToken={this.checkForLocalToken}
+                  {...this.props}
+                />
+              )}
+            />
+            <Route
+              path={`/profile/${user._id}`}
+              exact
+              render={() => (
+                <UserProfile user={this.state.user} logout={this.logout} />
+              )}
+            />
+            <Route
+              path={`/create-post`}
+              exact
+              render={() => (
+                <CreatePost
+                  user={this.state.user}
+                  userLocation={this.state.userLocation}
+                  {...this.props}
+                />
+              )}
+            />
+          </Router>
+        </div>
+      );
+    } else {
+      return (
+        <div className='app-div'>
+          <Signup liftTokenToState={this.liftTokenToState} />
+          <Login liftTokenToState={this.liftTokenToState} />
+        </div>
+      );
+    }
+  }
+
+  render() {
+ 
+    
     return (
       <div className='App'>
-        <div className='flex'>{contents}</div>
+        <div className='app-header'>
+          <h1 className="app-title">
+            nextbite
+          </h1>
+          <img
+            src={Noodles}
+            alt='noodles'
+            className="app-logo"
+          />
+        </div>
+        {this.generateRouterOrLogin(this.state.user)}
       </div>
     );
   }
