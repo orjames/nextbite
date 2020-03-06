@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import CommentIcon from './images/comment-regular';
-import PlusIcon from './images/plus-solid';
 import CloseIcon from './images/window-close-regular';
+import CommentForm from './CommentForm';
 
-class FeedCreateComment extends React.Component<any, any> {
+class FeedComment extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
       commenting: false,
       body: '',
-      message: '',
+      message: ''
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   handleInputChange = (e: any) => {
     this.setState({
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
   // change commenting to true or false
   changeCommenting = () => {
     this.setState((prevState: any) => ({
-      commenting: !prevState.commenting,
+      commenting: !prevState.commenting
     }));
   };
 
@@ -33,12 +33,12 @@ class FeedCreateComment extends React.Component<any, any> {
     axios
       .post(`/api/posts/${postId}/comments`, {
         body: this.state.body,
-        user: this.props.user.firstName + ' ' + this.props.user.lastName,
+        user: this.props.user.firstName + ' ' + this.props.user.lastName
       })
-      .then((res) => {
+      .then(res => {
         if (res.data.type === 'error') {
           this.setState({
-            message: res.data.message,
+            message: res.data.message
           });
           console.log(`error ${res.data.message}`);
         } else {
@@ -48,10 +48,10 @@ class FeedCreateComment extends React.Component<any, any> {
       .then(() => {
         this.changeCommenting();
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
         this.setState({
-          message: err,
+          message: err
         });
       });
   };
@@ -62,45 +62,40 @@ class FeedCreateComment extends React.Component<any, any> {
     if (this.state.commenting) {
       form = (
         <div className='comment-form-div'>
-          <form
-            onSubmit={(e: any) => this.handleSubmit(e, postId)}
-          >
-            <div className='comment-input-container'>
-              <input
-                onChange={this.handleInputChange}
-                value={this.state.body}
-                name='body'
-                id='body'
-                className='input'
-                type='text'
-                pattern='.+'
-                required
-              />
-              <label className='label' htmlFor='body'>
-                comment
-              </label>
-            </div>
+          <form onSubmit={(e: any) => this.handleSubmit(e, postId)}>
             <div className='comment-button-div'>
-              <button className='fav-button' type='submit' value='submit'>
-                <PlusIcon width={'1.3rem'} />
+              <button
+                className='fav-button below-image-button'
+                type='submit'
+                value='submit'
+              >
                 <CommentIcon width={'1.3rem'} />
               </button>
               <button
-                className='fav-button'
+                className='fav-button below-image-button'
                 value='cancel'
                 onClick={this.changeCommenting}
               >
                 <CloseIcon width={'1.3rem'} />
               </button>
             </div>
+            <CommentForm
+              user={this.props.user}
+              commenting={this.props.commenting}
+              changeCommenting={this.props.changeCommenting}
+              refreshPosts={this.props.refreshPosts}
+              post={this.props.post}
+            />
           </form>
         </div>
       );
     } else {
       form = (
         <div className='comment-button-div'>
-          <button className='fav-button' onClick={this.changeCommenting}>
-            <PlusIcon width={'1.3rem'} />
+          <button
+            className='fav-button below-image-button'
+            onClick={this.changeCommenting}
+          >
             <CommentIcon width={'1.3rem'} />
           </button>
         </div>
@@ -111,4 +106,4 @@ class FeedCreateComment extends React.Component<any, any> {
   }
 }
 
-export default FeedCreateComment;
+export default FeedComment;

@@ -2,14 +2,13 @@
 @import url('https://fonts.googleapis.com/css?family=Handlee');
 
 $black: rgb(37, 37, 37);
-$lighter: rgb(87, 87, 87);
+$lighter: rgb(143, 143, 143);
 $gray: rgb(153, 153, 153);
-$red: rgb(170,56,30);
+$red: rgb(170, 56, 30);
 $white: rgb(255, 243, 228);
 $orange: rgb(166, 79, 3);
 $yellow: rgb(242, 159, 5);
 $pink: rgb(216, 83, 183);
-
 
 /* General App CSS */
 body {
@@ -46,15 +45,18 @@ button:active {
   font-weight: 500;
   max-width: 340px;
   width: 340px;
-  
-  .app-header{
+
+  .app-header {
     font-family: 'Handlee', cursive;
     display: flex;
     justify-content: center;
-    
+
     .app-title {
+      font-family: 'Handlee', cursive;
       font-size: 3.5rem;
       margin: 1rem 1rem 0 0;
+      font-weight: lighter;
+      color: black;
     }
     .app-logo {
       width: 55px;

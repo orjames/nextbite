@@ -11,8 +11,10 @@
   "author": "Owen R. James",
   "license": "ISC",
   "dependencies": {
+    "@types/classnames": "^2.2.9",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
+    "classnames": "^2.2.6",
     "cloudinary": "^1.14.0",
     "cors": "^2.8.5",
     "dotenv": "^7.0.0",

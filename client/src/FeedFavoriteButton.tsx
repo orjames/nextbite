@@ -10,7 +10,7 @@ const FeedFavoriteButton = (props: any) => {
       // if post is contained in user.favorites
       return (
         <button
-          className='fav-button un-fav-button'
+          className='fav-button un-fav-button below-image-button'
           onClick={() => props.removeFromFavorites(props.post)}
         >
           <HeartSolidIcon width={'1.3rem'} className='' />
@@ -19,7 +19,7 @@ const FeedFavoriteButton = (props: any) => {
     } else {
       return (
         <button
-          className='fav-button'
+          className='fav-button below-image-button'
           onClick={() => props.addToFavorites(props.post)}
         >
           <HeartEmptyIcon width={'1.3rem'} className='' />
@@ -29,7 +29,7 @@ const FeedFavoriteButton = (props: any) => {
   } else {
     return (
       <button
-        className='fav-button'
+        className='fav-button below-image-button'
         onClick={() => props.addToFavorites(props.post)}
       >
         <HeartEmptyIcon width={'1.3rem'} className='' />

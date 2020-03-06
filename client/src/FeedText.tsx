@@ -8,10 +8,12 @@ const FeedText = (props: any) => {
         <span className='company-name'>{props.post.company}</span>
         <span className='caption'>{props.post.caption}</span>
       </div>
-      <div className='date'>
-        {props.dateConverter(props.post.updatedAt)}
+      <div className='tags-and-date-div'>
+        <div className='tags'>{props.tags}</div>
+        <div className='feed-date'>
+          {props.dateConverter(props.post.updatedAt)}
+        </div>
       </div>
-      <div className='tags'>{props.tags}</div>
     </div>
   );
 };

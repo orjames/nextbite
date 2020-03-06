@@ -8,9 +8,9 @@ const FeedComments = (props: any) => {
   if (commentsData.length) {
     comments = commentsData.map((comment: CommentInterface, index: number) => {
       return (
-        <div key={index} className="comment">
-          <span className='bold'>{comment.user}</span> {comment.body}{' '}
-          <span className='lighter'>{convertDate(comment.updatedAt)}</span>
+        <div key={index} className='comment'>
+          <span className='user-name'>{comment.user}</span> {comment.body}{' '}
+          <span className='feed-date'>{convertDate(comment.updatedAt)}</span>
         </div>
       );
     });

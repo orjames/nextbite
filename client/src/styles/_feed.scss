@@ -1,14 +1,18 @@
-.feed-div {
+.feed-item-div {
   display: flex;
   flex-direction: column;
+  margin-bottom: 3rem;
 
   .feed-above-image-div {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .company-name-div {
+  }
 
-    }
+  .company-name-div {
+    white-space: nowrap;
+    font-weight: bold;
+    margin-right: 0.5rem;
   }
 
   .distance-div {
@@ -25,7 +29,10 @@
     display: flex;
     justify-content: space-between;
     .sub-image-buttons-div {
-
+      display: flex;
+    }
+    .below-image-button {
+      padding: 0;
     }
   }
 
@@ -37,31 +44,36 @@
         margin-right: 0.5rem;
       }
       .caption {
-
       }
     }
-    .date {
-
+    .tags-and-date-div {
+      display: flex;
+      justify-content: space-between;
+      margin: 0.3rem 0;
     }
     .tags {
-
     }
   }
 
+  .feed-date {
+    color: $lighter;
+    white-space: nowrap;
+  }
 
   .comments-div {
-    .comment{
+    .comment {
+    }
 
+    .user-name {
+      font-weight: bold;
     }
   }
 
   .comment-form-div {
     .comment-input-container {
-
     }
 
     .comment-button-div {
-      
     }
   }
 }

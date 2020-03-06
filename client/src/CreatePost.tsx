@@ -18,7 +18,7 @@ class CreatePost extends React.Component<any, any> {
       publicId: '',
       caption: '',
       tags: [],
-      message: '',
+      message: ''
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleTagsChange = this.handleTagsChange.bind(this);
@@ -26,7 +26,7 @@ class CreatePost extends React.Component<any, any> {
 
   handleInputChange = (e: any) => {
     this.setState({
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
@@ -34,7 +34,7 @@ class CreatePost extends React.Component<any, any> {
     let tags = this.state.tags;
     tags[num] = e.target.value;
     this.setState({
-      tags: tags,
+      tags: tags
     });
   };
 
@@ -47,12 +47,12 @@ class CreatePost extends React.Component<any, any> {
         location: this.props.userLocation,
         tags: this.state.tags,
         company: this.props.user.company,
-        favorite: false,
+        favorite: false
       })
-      .then((res) => {
+      .then(res => {
         if (res.data.type === 'error') {
           this.setState({
-            message: res.data.message,
+            message: res.data.message
           });
           console.log(`error ${res.data.message}`);
         } else {
@@ -60,10 +60,10 @@ class CreatePost extends React.Component<any, any> {
           this.props.history.push('/');
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
         this.setState({
-          message: err,
+          message: err
         });
       });
   };
@@ -83,7 +83,7 @@ class CreatePost extends React.Component<any, any> {
     const types = ['image/png', 'image/jpeg', 'image/gif'];
     files.forEach((file: any, index: any) => {
       // filtering to make sure only correct img format
-      if (types.every((type) => file.type !== type)) {
+      if (types.every(type => file.type !== type)) {
         errs.push(`'${file.type}' is not a supported format`);
       }
       // filter by file size
@@ -93,24 +93,24 @@ class CreatePost extends React.Component<any, any> {
       formData.append(index, file);
     });
     if (errs.length) {
-      return errs.forEach((error) => console.log(error));
+      return errs.forEach(error => console.log(error));
     }
     this.setState({ uploading: true });
     fetch(`api/image-upload`, { method: 'POST', body: formData })
-      .then((res) => {
+      .then(res => {
         if (!res.ok) {
           throw res;
         }
         return res.json();
       })
-      .then((images) => {
+      .then(images => {
         this.setState({
           uploading: false,
           images: images,
-          publicId: images[0].public_id,
+          publicId: images[0].public_id
         });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err.message);
         this.setState({ uploading: false });
       });
@@ -179,12 +179,9 @@ class CreatePost extends React.Component<any, any> {
 
     if (this.state.publicId && this.state.uploading === false) {
       form = (
-        <div className='flex column align-center mt-6 full-width'>
-          <form
-            className='full-width'
-            onSubmit={(e: any) => this.handleSubmit(e, userId)}
-          >
-            <div className='input-container mb-4'>
+        <div className='form-post-div'>
+          <form onSubmit={(e: any) => this.handleSubmit(e, userId)}>
+            <div className='input-container'>
               <input
                 onChange={this.handleInputChange}
                 value={this.state.caption}
@@ -212,7 +209,7 @@ class CreatePost extends React.Component<any, any> {
     }
 
     return (
-      <div className='max-width flex column align-center mb-10'>
+      <div className='create-post-div'>
         <div className='toggle fancy'>create a new post:</div>
         {uploader()}
         {form}

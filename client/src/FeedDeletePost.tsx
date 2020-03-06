@@ -5,8 +5,8 @@ const FeedDeletePost = (props: any) => {
   if (props.user.posts.includes(props.post._id)) {
     return (
       <button
-        className='fav-button'
-        onClick={(e) => props.deletePost(e, props.post._id)}
+        className='fav-button below-image-button'
+        onClick={e => props.deletePost(e, props.post._id)}
       >
         <TrashIcon width={'1.3rem'} className='' />
       </button>

@@ -1,12 +1,39 @@
+$border-radius-size: 10px;
+
 .app-div {
   .home-icon {
     height: 2.3rem;
     width: 2.3rem;
   }
-  
+
   .toggle-container {
     display: flex;
     justify-content: center;
     margin-bottom: 1rem;
+    margin-top: 1rem;
+
+    :first-child {
+      border-top-left-radius: $border-radius-size;
+      border-bottom-left-radius: $border-radius-size;
+    }
+
+    :last-child {
+      border-top-right-radius: $border-radius-size;
+      border-bottom-right-radius: $border-radius-size;
+    }
+  }
+
+  .feed-toggle-button {
+    font-family: 'Handlee', cursive;
+    background: none;
+    flex-grow: 1;
+    padding: 0.5rem 1rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+
+    &.selected {
+      color: $red;
+      background: darken($color: $white, $amount: 10%);
+    }
   }
 }

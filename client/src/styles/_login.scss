@@ -1,5 +1,6 @@
 .input-container {
   position: relative;
+  margin-bottom: 1.1rem;
 }
 
 input {
@@ -8,6 +9,9 @@ input {
   outline: none;
   transition: 0.2s ease-in-out;
   box-sizing: border-box;
+}
+
+.input-label {
 }
 
 .label {
@@ -22,10 +26,6 @@ input {
   cursor: text;
   transition: 0.2s ease-in-out;
   box-sizing: border-box;
-}
-
-.non-absolute {
-  position: relative;
 }
 
 input,
@@ -180,7 +180,6 @@ buttons
     transform: rotate(-360deg);
   }
 }
-
 
 /* Login/Signup Specific */
 .auth-button {

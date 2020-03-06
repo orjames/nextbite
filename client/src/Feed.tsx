@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { PostInterface } from './types/react-app-env';
-import FeedCreateComment from './FeedCreateComment';
+import FeedComment from './FeedComment';
 import FeedImage from './FeedImage';
 import FeedFavoriteButton from './FeedFavoriteButton';
 import FeedComments from './FeedComments';
@@ -8,9 +8,9 @@ import FeedDeletePost from './FeedDeletePost';
 import NavIcon from './images/location-arrow-solid';
 import FeedText from './FeedText';
 import FeedAboveImage from './FeedAboveImage';
-import { roundNumber } from './functions/roundNumber'
-import { calculateDistance } from './functions/calculateDistance'
-import { convertDate } from './functions/convertDate'
+import { roundNumber } from './functions/roundNumber';
+import { calculateDistance } from './functions/calculateDistance';
+import { convertDate } from './functions/convertDate';
 
 const Feed = (props: any) => {
   let posts;
@@ -23,7 +23,6 @@ const Feed = (props: any) => {
   // if there are any posts
   if (props.posts !== null) {
     posts = props.posts.map((post: PostInterface, index: number) => {
-
       let tags = post.tags.map((tag: string, index: number) => {
         return (
           <span className='link' key={index}>
@@ -32,7 +31,7 @@ const Feed = (props: any) => {
         );
       });
       return (
-        <div className='feed-div' key={index}>
+        <div className='feed-item-div' key={index}>
           <FeedAboveImage post={post} distance={distance} />
           <FeedImage post={post} />
           <div className='sub-image-div'>
@@ -43,6 +42,13 @@ const Feed = (props: any) => {
                 removeFromFavorites={props.removeFromFavorites}
                 addToFavorites={props.addToFavorites}
               />
+              <FeedComment
+                user={props.user}
+                commenting={props.commenting}
+                changeCommenting={props.changeCommenting}
+                refreshPosts={props.refreshPosts}
+                post={post}
+              />
               <FeedDeletePost
                 post={post}
                 user={props.user}
@@ -50,11 +56,8 @@ const Feed = (props: any) => {
               />
             </div>
             <div className='distance-div'>
-              <NavIcon
-                fill={'rgb(242, 159, 5)'}
-                className='fav-button'
-              />
-              {distance(post.location.lat, post.location.long)} miles away
+              <NavIcon fill={'rgb(242, 159, 5)'} className='fav-button' />
+              {distance(post.location.lat, post.location.long)} mi.
             </div>
           </div>
           <FeedText
@@ -64,13 +67,6 @@ const Feed = (props: any) => {
             tags={tags}
           />
           <FeedComments post={post} />
-          <FeedCreateComment
-            user={props.user}
-            commenting={props.commenting}
-            changeCommenting={props.changeCommenting}
-            refreshPosts={props.refreshPosts}
-            post={post}
-          />
         </div>
       );
     });

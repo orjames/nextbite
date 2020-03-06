@@ -12,15 +12,15 @@ interface UserInterface {
   company: string;
 }
 
-interface ILiftToken {
+interface LiftTokenInterface {
   token: string;
   user: UserInterface;
   message: string;
 }
 
 interface IAuthProps {
-  liftTokenToState: (arg0: ILiftToken) => void;
-  // saying this is a function with argument arg0 of type ILiftToken, void function (returns nothing)
+  liftTokenToState: (arg0: LiftTokenInterface) => void;
+  // saying this is a function with argument arg0 of type LiftTokenInterface, void function (returns nothing)
 }
 
 interface IAuthState {
@@ -35,7 +35,7 @@ class Login extends Component<IAuthProps, IAuthState> {
     this.state = {
       email: '',
       password: '',
-      message: '',
+      message: ''
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,7 +43,7 @@ class Login extends Component<IAuthProps, IAuthState> {
 
   handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
@@ -52,21 +52,21 @@ class Login extends Component<IAuthProps, IAuthState> {
     axios
       .post('/auth/login', {
         email: this.state.email,
-        password: this.state.password,
+        password: this.state.password
       })
-      .then((res) => {
+      .then(res => {
         if (res.data.type === 'error') {
           this.setState({
-            message: res.data.message,
+            message: res.data.message
           });
         } else {
           localStorage.setItem('mernToken', res.data.token);
           this.props.liftTokenToState(res.data);
         }
       })
-      .catch((err) => {
+      .catch(err => {
         this.setState({
-          message: err.response.data.message,
+          message: err.response.data.message
         });
       });
   };
@@ -76,21 +76,21 @@ class Login extends Component<IAuthProps, IAuthState> {
     axios
       .post('/auth/login', {
         email: 'guestuser@gmail.com',
-        password: 'password123',
+        password: 'password123'
       })
-      .then((res) => {
+      .then(res => {
         if (res.data.type === 'error') {
           this.setState({
-            message: res.data.message,
+            message: res.data.message
           });
         } else {
           localStorage.setItem('mernToken', res.data.token);
           this.props.liftTokenToState(res.data);
         }
       })
-      .catch((err) => {
+      .catch(err => {
         this.setState({
-          message: err.response.data.message,
+          message: err.response.data.message
         });
       });
   };
@@ -100,7 +100,7 @@ class Login extends Component<IAuthProps, IAuthState> {
       <section>
         <form onSubmit={this.handleSubmit}>
           <h1>login</h1>
-          <div className='input-container mb-8'>
+          <div className='input-container'>
             <input
               onChange={this.handleInputChange}
               value={this.state.email}
@@ -115,7 +115,7 @@ class Login extends Component<IAuthProps, IAuthState> {
               email
             </label>
           </div>
-          <div className='input-container mb-8'>
+          <div className='input-container'>
             <input
               onChange={this.handleInputChange}
               value={this.state.password}
@@ -132,14 +132,14 @@ class Login extends Component<IAuthProps, IAuthState> {
           </div>
           <button className='none' type='submit' value='login'>
             <div className='container-2'>
-              <div className='flex center btn btn-two'>login</div>
+              <div className='btn btn-two'>login</div>
             </div>
           </button>
         </form>
         <form onSubmit={this.handleSubmitGuest}>
           <button className='none' type='submit' value='login'>
-            <div className='container-2 mt-10'>
-              <div className='flex center btn btn-two'>guest</div>
+            <div className='container-2'>
+              <div className='btn btn-two'>guest</div>
             </div>
           </button>
         </form>

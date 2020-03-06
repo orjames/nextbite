@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Feed from './Feed';
+import classNames from 'classnames';
 
 export interface LocationInterface {
   lat: number;
@@ -36,7 +37,7 @@ interface UserInterface {
   company: string;
 }
 
-interface ILiftToken {
+interface LiftTokenInterface {
   token: string;
   user: UserInterface;
   message: string;
@@ -55,7 +56,7 @@ class Home extends React.Component<IHomeProps, IHomeState> {
     this.state = {
       posts: [],
       favoritesSelected: false,
-      favorites: [],
+      favorites: []
     };
     this.addToFavorites = this.addToFavorites.bind(this);
     this.removeFromFavorites = this.removeFromFavorites.bind(this);
@@ -68,13 +69,13 @@ class Home extends React.Component<IHomeProps, IHomeState> {
       .get('/api/posts')
       .then((res: any) => {
         this.setState({
-          posts: res.data,
+          posts: res.data
         });
       })
       .then(() => {
         axios.get(`/api/users/${this.props.user._id}`).then((res: any) => {
           this.setState({
-            favorites: res.data.favorites,
+            favorites: res.data.favorites
           });
         });
       });
@@ -83,13 +84,13 @@ class Home extends React.Component<IHomeProps, IHomeState> {
   // change feed to view favorites or feed
   changeFeed = () => {
     this.setState((prevState: IHomeState) => ({
-      favoritesSelected: !prevState.favoritesSelected,
+      favoritesSelected: !prevState.favoritesSelected
     }));
   };
 
   refreshPosts = (postData: Array<PostInterface>) => {
     this.setState({
-      posts: postData,
+      posts: postData
     });
   };
 
@@ -99,14 +100,14 @@ class Home extends React.Component<IHomeProps, IHomeState> {
     let userId = this.props.user._id;
     axios
       .delete(`/api//users/${userId}/posts/${pid}`, {})
-      .then((res) => {
+      .then(res => {
         if (res.data.type === 'error') {
           console.log(`error ${res.data.message}`);
         } else {
           this.refreshPosts(res.data);
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -122,18 +123,18 @@ class Home extends React.Component<IHomeProps, IHomeState> {
     favorites.push(post);
     axios
       .put(`/api/users/${this.props.user._id}/favorite`, { favorites })
-      .then((res) => {
+      .then(res => {
         if (res.data.type === 'error') {
           console.log(`error ${res.data.message}`);
         } else {
           console.log('\x1b[32m', 'res.data:');
           console.log(res.data);
           this.setState({
-            favorites: res.data.favorites,
+            favorites: res.data.favorites
           });
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       })
       .then(() => {
@@ -155,16 +156,16 @@ class Home extends React.Component<IHomeProps, IHomeState> {
     });
     axios
       .put(`/api/users/${this.props.user._id}/favorite`, { filteredFavorites })
-      .then((res) => {
+      .then(res => {
         if (res.data.type === 'error') {
           console.log(`error ${res.data.message}`);
         } else {
           this.setState({
-            favorites: res.data.favorites,
+            favorites: res.data.favorites
           });
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       })
       .then(() => {
@@ -173,20 +174,27 @@ class Home extends React.Component<IHomeProps, IHomeState> {
   };
 
   generateToggle = (favoritesSelected: boolean) => {
-    if (favoritesSelected) {
-      return (
-        <button className='fav-button toggle fancy' onClick={this.changeFeed}>
+    return (
+      <div className='toggle-container'>
+        <button
+          className={classNames('feed-toggle-button', {
+            selected: !this.state.favoritesSelected
+          })}
+          onClick={this.changeFeed}
+        >
           back to feed
         </button>
-      )
-    } else {
-      return (
-        <button className='fav-button toggle fancy' onClick={this.changeFeed}>
+        <button
+          className={classNames('feed-toggle-button', {
+            selected: this.state.favoritesSelected
+          })}
+          onClick={this.changeFeed}
+        >
           view favorites
         </button>
-      )
-    }
-  }
+      </div>
+    );
+  };
 
   render() {
     // if the user has selected to view their favorites
@@ -199,9 +207,7 @@ class Home extends React.Component<IHomeProps, IHomeState> {
 
     return (
       <div className='app-div'>
-        <div className='toggle-container'>
-          {this.generateToggle(this.state.favoritesSelected)}
-        </div>
+        {this.generateToggle(this.state.favoritesSelected)}
         <Feed
           favoritesSelected={this.state.favoritesSelected}
           location={this.props.userLocation}
