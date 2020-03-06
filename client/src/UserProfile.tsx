@@ -1,23 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { UserInterface, LocationInterface } from './types/react-app-env';
 
-interface UserInterface {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  message: string;
-  isCompany: string;
-  company: string;
-  posts: object[];
-}
-interface IProfileProps {
+interface Props {
   user: UserInterface | null;
   logout: () => void;
 }
 
-const UserProfile = (props: IProfileProps) => {
+const UserProfile = (props: Props) => {
   if (props.user !== null && props.user !== undefined) {
     let greeting;
     if (props.user.company !== '') {

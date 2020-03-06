@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Signup from './Signup';
 import Login from './Login';
-import Home from './Home';
+import { Home } from './Home';
 import UserProfile from './UserProfile';
 import CreatePost from './CreatePost';
 import axios from 'axios';

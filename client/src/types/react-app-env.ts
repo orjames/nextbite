@@ -1,6 +1,4 @@
-/// <reference types="react-scripts" />
-
-interface UserInterface {
+export interface UserInterface {
   _id: string;
   firstName: string;
   lastName: string;
@@ -22,7 +20,7 @@ export interface PostInterface {
   caption: string;
   company: string;
   createdAt: string;
-  location: ILocation;
+  location: LocationInterface;
   publicId: string;
   tags: string[];
   updatedAt: Date;
@@ -34,4 +32,9 @@ export interface CommentInterface {
   createdAt: Date;
   updatedAt: Date;
   user: string;
+}
+
+export enum FeedOptions {
+  'Feed' = 'Feed',
+  'Favorites' = 'Favorites',
 }

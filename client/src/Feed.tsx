@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import { PostInterface } from './types/react-app-env';
-import FeedComment from './FeedComment';
+import React from 'react';
+import { FeedComment } from './FeedComment';
 import FeedImage from './FeedImage';
 import FeedFavoriteButton from './FeedFavoriteButton';
 import FeedComments from './FeedComments';
@@ -11,8 +10,20 @@ import FeedAboveImage from './FeedAboveImage';
 import { roundNumber } from './functions/roundNumber';
 import { calculateDistance } from './functions/calculateDistance';
 import { convertDate } from './functions/convertDate';
+import { PostInterface, LocationInterface, UserInterface, FeedOptions } from './types/react-app-env'
 
-const Feed = (props: any) => {
+interface Props {
+  feedToggle: FeedOptions;
+  location: LocationInterface;
+  addToFavorites: (post: PostInterface) => void;
+  removeFromFavorites: (post: PostInterface) => void;
+  refreshPosts: (postData: PostInterface[]) => void;
+  deletePost: (e: React.MouseEvent<Element, MouseEvent>, pid: string) => void;
+  user: UserInterface;
+  posts: PostInterface[];
+}
+
+const Feed = (props: Props) => {
   let posts;
   // rounds distance to 2 places
   const round = roundNumber();
@@ -44,8 +55,6 @@ const Feed = (props: any) => {
               />
               <FeedComment
                 user={props.user}
-                commenting={props.commenting}
-                changeCommenting={props.changeCommenting}
                 refreshPosts={props.refreshPosts}
                 post={post}
               />
