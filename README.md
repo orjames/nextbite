@@ -54,11 +54,12 @@ Making sure I used typescript was imperative for this app
 I decided to refactor the app using React Hooks (it's the future!)
 
 Old Code (gross I know)
+
 ```javascript
-import React, { Component } from 'react';
-import axios from 'axios';
-import Feed from './Feed';
-import classNames from 'classnames';
+import React, { Component } from "react";
+import axios from "axios";
+import Feed from "./Feed";
+import classNames from "classnames";
 
 export interface LocationInterface {
   lat: number;
@@ -113,7 +114,7 @@ class Home extends React.Component<IHomeProps, IHomeState> {
     this.state = {
       posts: [],
       favoritesSelected: false,
-      favorites: []
+      favorites: [],
     };
     this.addToFavorites = this.addToFavorites.bind(this);
     this.removeFromFavorites = this.removeFromFavorites.bind(this);
@@ -123,16 +124,16 @@ class Home extends React.Component<IHomeProps, IHomeState> {
   componentDidMount() {
     // getting all posts
     axios
-      .get('/api/posts')
+      .get("/api/posts")
       .then((res: any) => {
         this.setState({
-          posts: res.data
+          posts: res.data,
         });
       })
       .then(() => {
         axios.get(`/api/users/${this.props.user._id}`).then((res: any) => {
           this.setState({
-            favorites: res.data.favorites
+            favorites: res.data.favorites,
           });
         });
       });
@@ -141,30 +142,30 @@ class Home extends React.Component<IHomeProps, IHomeState> {
   // change feed to view favorites or feed
   changeFeed = () => {
     this.setState((prevState: IHomeState) => ({
-      favoritesSelected: !prevState.favoritesSelected
+      favoritesSelected: !prevState.favoritesSelected,
     }));
   };
 
   refreshPosts = (postData: Array<PostInterface>) => {
     this.setState({
-      posts: postData
+      posts: postData,
     });
   };
 
   deletePost = (e: any, pid: string) => {
-    console.log('\x1b[32m', 'in deletePost', pid);
+    console.log("\x1b[32m", "in deletePost", pid);
     e.preventDefault();
     let userId = this.props.user._id;
     axios
       .delete(`/api//users/${userId}/posts/${pid}`, {})
-      .then(res => {
-        if (res.data.type === 'error') {
+      .then((res) => {
+        if (res.data.type === "error") {
           console.log(`error ${res.data.message}`);
         } else {
           this.refreshPosts(res.data);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -180,18 +181,18 @@ class Home extends React.Component<IHomeProps, IHomeState> {
     favorites.push(post);
     axios
       .put(`/api/users/${this.props.user._id}/favorite`, { favorites })
-      .then(res => {
-        if (res.data.type === 'error') {
+      .then((res) => {
+        if (res.data.type === "error") {
           console.log(`error ${res.data.message}`);
         } else {
-          console.log('\x1b[32m', 'res.data:');
+          console.log("\x1b[32m", "res.data:");
           console.log(res.data);
           this.setState({
-            favorites: res.data.favorites
+            favorites: res.data.favorites,
           });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       })
       .then(() => {
@@ -213,16 +214,16 @@ class Home extends React.Component<IHomeProps, IHomeState> {
     });
     axios
       .put(`/api/users/${this.props.user._id}/favorite`, { filteredFavorites })
-      .then(res => {
-        if (res.data.type === 'error') {
+      .then((res) => {
+        if (res.data.type === "error") {
           console.log(`error ${res.data.message}`);
         } else {
           this.setState({
-            favorites: res.data.favorites
+            favorites: res.data.favorites,
           });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       })
       .then(() => {
@@ -234,16 +235,16 @@ class Home extends React.Component<IHomeProps, IHomeState> {
     return (
       <div className='toggle-container'>
         <button
-          className={classNames('feed-toggle-button', {
-            selected: !this.state.favoritesSelected
+          className={classNames("toggle-button", {
+            selected: !this.state.favoritesSelected,
           })}
           onClick={this.changeFeed}
         >
           back to feed
         </button>
         <button
-          className={classNames('feed-toggle-button', {
-            selected: this.state.favoritesSelected
+          className={classNames("toggle-button", {
+            selected: this.state.favoritesSelected,
           })}
           onClick={this.changeFeed}
         >
@@ -284,6 +285,7 @@ export default Home;
 ```
 
 New, cleaner, easier to navigate, using funcitonal components, React Hooks, code:
+
 ```javascript
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -302,7 +304,7 @@ export const Home = (props: Props) => {
   const [posts, setPosts] = useState<PostInterface[]>([]);
   let [feedToggle, setFeedToggle] = useState<FeedOptions>(FeedOptions.Feed);
   const [favorites, setFavorites] = useState<PostInterface[]>([]);
-  
+
   useEffect(() => {
     // getting all posts
     axios
@@ -395,7 +397,7 @@ export const Home = (props: Props) => {
     return (
       <div className='toggle-container'>
         <button
-          className={classNames('feed-toggle-button', {
+          className={classNames('toggle-button', {
             selected: feedToggle === FeedOptions.Feed
           })}
           onClick={() => changeFeed(FeedOptions.Feed)}
@@ -403,7 +405,7 @@ export const Home = (props: Props) => {
           feed
         </button>
         <button
-          className={classNames('feed-toggle-button', {
+          className={classNames('toggle-button', {
             selected: feedToggle === FeedOptions.Favorites
           })}
           onClick={() => changeFeed(FeedOptions.Favorites)}
@@ -439,18 +441,18 @@ Backend:
 
 ```javascript
 // POST /posts/:pid/comments - CREATES a new comment for that post
-router.post('/posts/:pid/comments', (req, res) => {
-  console.log('\x1b[36m%s\x1b[0m', 'In POST /posts/:pid/comments');
+router.post("/posts/:pid/comments", (req, res) => {
+  console.log("\x1b[36m%s\x1b[0m", "In POST /posts/:pid/comments");
   Post.findById(req.params.pid, (err, post) => {
     let newComment = new Comment({
       body: req.body.body,
-      user: req.body.user
+      user: req.body.user,
     });
     newComment.save((err, comment) => {
       post.comments.push(comment);
       post.save((err, post) => {
         Post.find({})
-          .populate('comments')
+          .populate("comments")
           .exec((err, posts) => {
             if (err) {
               return res.status(500).send(err);
@@ -472,12 +474,12 @@ handleSubmit = (e: any, postId: string) => {
   axios
     .post(`/api/posts/${postId}/comments`, {
       body: this.state.body,
-      user: this.props.user.firstName + ' ' + this.props.user.lastName
+      user: this.props.user.firstName + " " + this.props.user.lastName,
     })
-    .then(res => {
-      if (res.data.type === 'error') {
+    .then((res) => {
+      if (res.data.type === "error") {
         this.setState({
-          message: res.data.message
+          message: res.data.message,
         });
         console.log(`error ${res.data.message}`);
       } else {
@@ -487,10 +489,10 @@ handleSubmit = (e: any, postId: string) => {
     .then(() => {
       this.changeCommenting();
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
       this.setState({
-        message: err
+        message: err,
       });
     });
 };
@@ -507,12 +509,11 @@ connecting to heroku:
 install heroku CLI
 
 add a remote to your local repository:
-  heroku git:remote -a nextbite
+heroku git:remote -a nextbite
 
 getting the URI for the mongodb:
-  heroku config:get MONGODB_URI
-    put that as the MONGODB_URI in your .env file
+heroku config:get MONGODB_URI
+put that as the MONGODB_URI in your .env file
 
 Deploying code:
-  git push heroku master
-
+git push heroku master

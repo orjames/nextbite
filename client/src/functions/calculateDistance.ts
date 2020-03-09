@@ -1,7 +1,10 @@
-export function calculateDistance(props: any, round: (num: number) => number) {
+import { LocationInterface } from '../types/react-app-env';
+
+export function calculateDistance(location: LocationInterface, round: (num: number) => number) {
+
   return (lat1: number, long1: number) => {
-    let lat2 = props.location.lat;
-    let long2 = props.location.long;
+    let lat2 = location.lat;
+    let long2 = location.long;
     let R = 6371e3; // metres
     let φ1 = (lat1 * Math.PI) / 180;
     let φ2 = (lat2 * Math.PI) / 180;

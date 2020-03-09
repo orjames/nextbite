@@ -23,13 +23,14 @@ $border-radius-size: 10px;
     }
   }
 
-  .feed-toggle-button {
-    font-family: 'Handlee', cursive;
+  .toggle-button {
+    font-family: "Handlee", cursive;
     background: none;
     flex-grow: 1;
     padding: 0.5rem 1rem;
     font-size: 1.3rem;
     font-weight: bold;
+    width: 50%;
 
     &.selected {
       color: $red;

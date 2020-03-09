@@ -38,3 +38,9 @@ export enum FeedOptions {
   'Feed' = 'Feed',
   'Favorites' = 'Favorites',
 }
+
+export interface LiftTokenInterface {
+  token: string;
+  user: UserInterface;
+  message: string;
+}

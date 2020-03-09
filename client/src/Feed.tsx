@@ -28,7 +28,7 @@ const Feed = (props: Props) => {
   // rounds distance to 2 places
   const round = roundNumber();
   // calculates distance given input long and lat and stored user long lat
-  const distance = calculateDistance(props, round);
+  const distance = calculateDistance(props.location, round);
   // converts updatedAt time to more readable string
   const dateConverter = convertDate();
   // if there are any posts

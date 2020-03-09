@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { LiftTokenInterface } from './types/react-app-env';
 import axios from 'axios';
 
 interface UserInterface {
@@ -11,13 +12,6 @@ interface UserInterface {
   isCompany: string;
   company: string;
 }
-
-interface LiftTokenInterface {
-  token: string;
-  user: UserInterface;
-  message: string;
-}
-
 interface Props {
   liftTokenToState: (arg0: LiftTokenInterface) => void;
 }

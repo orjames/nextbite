@@ -15,19 +15,19 @@ export const Home = (props: Props) => {
   const [posts, setPosts] = useState<PostInterface[]>([]);
   let [feedToggle, setFeedToggle] = useState<FeedOptions>(FeedOptions.Feed);
   const [favorites, setFavorites] = useState<PostInterface[]>([]);
-  
+
   useEffect(() => {
     // getting all posts
     axios
-    .get('/api/posts')
-    .then((res: any) => {
-      setPosts(res.data)
-    })
-    .then(() => {
-      axios.get(`/api/users/${props.user._id}`).then((res: any) => {
-        setFavorites(res.data.favorites)
+      .get('/api/posts')
+      .then((res: any) => {
+        setPosts(res.data)
+      })
+      .then(() => {
+        axios.get(`/api/users/${props.user._id}`).then((res: any) => {
+          setFavorites(res.data.favorites)
+        });
       });
-    });
   })
 
   // change feed to view favorites or feed
@@ -108,7 +108,7 @@ export const Home = (props: Props) => {
     return (
       <div className='toggle-container'>
         <button
-          className={classNames('feed-toggle-button', {
+          className={classNames('toggle-button', {
             selected: feedToggle === FeedOptions.Feed
           })}
           onClick={() => changeFeed(FeedOptions.Feed)}
@@ -116,7 +116,7 @@ export const Home = (props: Props) => {
           feed
         </button>
         <button
-          className={classNames('feed-toggle-button', {
+          className={classNames('toggle-button', {
             selected: feedToggle === FeedOptions.Favorites
           })}
           onClick={() => changeFeed(FeedOptions.Favorites)}
@@ -126,19 +126,19 @@ export const Home = (props: Props) => {
       </div>
     );
   };
-    return (
-      <div className='app-div'>
-        {generateToggle(feedToggle)}
-        <Feed
-          feedToggle={feedToggle}
-          location={props.userLocation}
-          addToFavorites={addToFavorites}
-          removeFromFavorites={removeFromFavorites}
-          refreshPosts={refreshPosts}
-          deletePost={deletePost}
-          user={props.user}
-          posts={feedToggle === FeedOptions.Feed ? posts : favorites}
-        />
-      </div>
-    );
+  return (
+    <div className='app-div'>
+      {generateToggle(feedToggle)}
+      <Feed
+        feedToggle={feedToggle}
+        location={props.userLocation}
+        addToFavorites={addToFavorites}
+        removeFromFavorites={removeFromFavorites}
+        refreshPosts={refreshPosts}
+        deletePost={deletePost}
+        user={props.user}
+        posts={feedToggle === FeedOptions.Feed ? posts : favorites}
+      />
+    </div>
+  );
 }

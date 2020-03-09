@@ -1,152 +1,94 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import { UserInterface, LiftTokenInterface } from './types/react-app-env';
 
-interface UserInterface {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  message: string;
-  isCompany: string;
-  company: string;
-}
-
-interface LiftTokenInterface {
-  token: string;
-  user: UserInterface;
-  message: string;
-}
-
-interface IAuthProps {
+interface Props {
   liftTokenToState: (arg0: LiftTokenInterface) => void;
-  // saying this is a function with argument arg0 of type LiftTokenInterface, void function (returns nothing)
 }
 
-interface IAuthState {
+interface State {
   email?: string;
   password?: string;
   message?: string;
 }
 
-class Login extends Component<IAuthProps, IAuthState> {
-  constructor(props: IAuthProps) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-      message: ''
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+export const Login = (props: Props) => {
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [message, setMessage] = useState<string>('')
 
-  handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.target.name === 'email' ? setEmail(e.target.value) : setPassword(e.target.value)
   };
 
-  handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent, passedEmail?: string, passedPassword?: string) => {
     e.preventDefault();
     axios
       .post('/auth/login', {
-        email: this.state.email,
-        password: this.state.password
+        email: passedEmail ? passedEmail : email,
+        password: passedPassword ? passedPassword : password,
       })
       .then(res => {
         if (res.data.type === 'error') {
-          this.setState({
-            message: res.data.message
-          });
+          setMessage(res.data.message)
         } else {
           localStorage.setItem('mernToken', res.data.token);
-          this.props.liftTokenToState(res.data);
+          props.liftTokenToState(res.data);
         }
       })
       .catch(err => {
-        this.setState({
-          message: err.response.data.message
-        });
+        setMessage(err.response.data.message)
       });
   };
 
-  handleSubmitGuest = (e: React.FormEvent) => {
-    e.preventDefault();
-    axios
-      .post('/auth/login', {
-        email: 'guestuser@gmail.com',
-        password: 'password123'
-      })
-      .then(res => {
-        if (res.data.type === 'error') {
-          this.setState({
-            message: res.data.message
-          });
-        } else {
-          localStorage.setItem('mernToken', res.data.token);
-          this.props.liftTokenToState(res.data);
-        }
-      })
-      .catch(err => {
-        this.setState({
-          message: err.response.data.message
-        });
-      });
-  };
-
-  render() {
-    return (
-      <section>
-        <form onSubmit={this.handleSubmit}>
-          <h1>login</h1>
-          <div className='input-container'>
-            <input
-              onChange={this.handleInputChange}
-              value={this.state.email}
-              name='email'
-              id='LoginEmail'
-              className='input'
-              type='email'
-              pattern='.+'
-              required
-            />
-            <label className='label' htmlFor='LoginEmail'>
-              email
-            </label>
+  return (
+    <section>
+      <form onSubmit={handleSubmit}>
+        <h1>login</h1>
+        <div className='input-container'>
+          <input
+            onChange={handleInputChange}
+            value={email}
+            name='email'
+            id='LoginEmail'
+            className='input'
+            type='email'
+            pattern='.+'
+            required
+          />
+          <label className='label' htmlFor='LoginEmail'>
+            email
+          </label>
+        </div>
+        <div className='input-container'>
+          <input
+            onChange={handleInputChange}
+            value={password}
+            name='password'
+            id='LoginPassword'
+            className='input'
+            type='password'
+            pattern='.+'
+            required
+          />
+          <label className='label' htmlFor='LoginPassword'>
+            password
+          </label>
+        </div>
+        <button className='none' type='submit' value='login'>
+          <div className='container-2'>
+            <div className='btn btn-two'>login</div>
           </div>
-          <div className='input-container'>
-            <input
-              onChange={this.handleInputChange}
-              value={this.state.password}
-              name='password'
-              id='LoginPassword'
-              className='input'
-              type='password'
-              pattern='.+'
-              required
-            />
-            <label className='label' htmlFor='LoginPassword'>
-              password
-            </label>
+        </button>
+      </form>
+      <form onSubmit={e => handleSubmit(e, 'guestuser@gmail.com', 'password123')}>
+        <button className='none' type='submit' value='login'>
+          <div className='container-2'>
+            <div className='btn btn-two'>guest</div>
           </div>
-          <button className='none' type='submit' value='login'>
-            <div className='container-2'>
-              <div className='btn btn-two'>login</div>
-            </div>
-          </button>
-        </form>
-        <form onSubmit={this.handleSubmitGuest}>
-          <button className='none' type='submit' value='login'>
-            <div className='container-2'>
-              <div className='btn btn-two'>guest</div>
-            </div>
-          </button>
-        </form>
-        <p>{this.state.message}</p>
-      </section>
-    );
-  }
+        </button>
+      </form>
+      <div>{message}</div>
+    </section>
+  );
 }
-
-export default Login;
