@@ -24,9 +24,9 @@ const App = () => {
 
 
   useEffect(() => {
-    // checkForLocalToken();
+    checkForLocalToken();
     getLocation();
-  });
+  }, []);
 
   const checkForLocalToken = () => {
     // look in local storage for the token
@@ -54,7 +54,7 @@ const App = () => {
   };
 
   const getLocation = () => {
-    let error = () => {
+    const error = () => {
       let errorlocation = {
         lat: 37.7749,
         long: 122.4194,
@@ -62,13 +62,7 @@ const App = () => {
       };
       setUserLocation(errorlocation)
     }
-    let success = (position: any) => {
-      var crd = position.coords;
-
-      console.log('Your current position is:');
-      console.log(`Latitude : ${crd.latitude}`);
-      console.log(`Longitude: ${crd.longitude}`);
-      console.log(`More or less ${crd.accuracy} meters.`);
+    const success = (position: any) => {
       let location = {
         lat: position.coords.latitude,
         long: position.coords.longitude,
@@ -78,6 +72,8 @@ const App = () => {
     }
     if (navigator && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(success, error)
+    } else {
+      error();
     }
   };
 
@@ -149,7 +145,7 @@ const App = () => {
               exact
               render={() => (
                 <Home
-                  user={user as UserInterface}
+                  userProp={user}
                   logout={logout}
                   userLocation={userLocation as LocationInterface}
                   checkForLocalToken={checkForLocalToken}

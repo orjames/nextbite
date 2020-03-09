@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 import { LiftTokenInterface } from './types/react-app-env';
 import { Login } from './Login';
 import Signup from './Signup';
@@ -13,17 +14,17 @@ enum LoginOrSignupEnum {
 }
 
 export const LandingPage = (props: Props) => {
-  const [loginOrSignup, setLoginOrSignup] = useState<LoginOrSignupEnum | null>(null)
+  const [loginOrSignup, setLoginOrSignup] = useState<LoginOrSignupEnum | null>(LoginOrSignupEnum.login)
 
   return (
     <div className="login-or-signup-div">
-      <div className="login-signup-toggle">
-        <div className="login-toggle" onClick={() => setLoginOrSignup(LoginOrSignupEnum.login)}>
+      <div className="toggle-container">
+        <button className={classNames("toggle-button", { selected: loginOrSignup === LoginOrSignupEnum.login })} onClick={() => setLoginOrSignup(LoginOrSignupEnum.login)}>
           login
-        </div>
-        <div className="signup-toggle" onClick={() => setLoginOrSignup(LoginOrSignupEnum.signup)}>
+        </button>
+        <button className={classNames("toggle-button", { selected: loginOrSignup === LoginOrSignupEnum.signup })} onClick={() => setLoginOrSignup(LoginOrSignupEnum.signup)}>
           signup
-        </div>
+        </button>
       </div>
       {loginOrSignup === LoginOrSignupEnum.signup ? <Signup liftTokenToState={props.liftTokenToState} /> : <Login liftTokenToState={props.liftTokenToState} />}
     </div>

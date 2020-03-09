@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { PostInterface, LocationInterface, UserInterface, FeedOptions } from './types/react-app-env'
 
 interface Props {
-  user: UserInterface;
+  userProp: UserInterface;
   userLocation: LocationInterface;
   logout: () => void;
   checkForLocalToken: () => void;
@@ -15,6 +15,7 @@ export const Home = (props: Props) => {
   const [posts, setPosts] = useState<PostInterface[]>([]);
   let [feedToggle, setFeedToggle] = useState<FeedOptions>(FeedOptions.Feed);
   const [favorites, setFavorites] = useState<PostInterface[]>([]);
+  const user = useState<UserInterface>()
 
   useEffect(() => {
     // getting all posts
@@ -24,7 +25,7 @@ export const Home = (props: Props) => {
         setPosts(res.data)
       })
       .then(() => {
-        axios.get(`/api/users/${props.user._id}`).then((res: any) => {
+        axios.get(`/api/users/${props.userProp._id}`).then((res: any) => {
           setFavorites(res.data.favorites)
         });
       });
@@ -44,7 +45,7 @@ export const Home = (props: Props) => {
   const deletePost = (e: React.MouseEvent, pid: string) => {
     console.log('\x1b[32m', 'in deletePost', pid);
     e.preventDefault();
-    let userId = props.user._id;
+    let userId = props.userProp._id;
     axios
       .delete(`/api//users/${userId}/posts/${pid}`, {})
       .then(res => {
@@ -61,9 +62,10 @@ export const Home = (props: Props) => {
 
   // add to favorites
   const addToFavorites = (post: PostInterface) => {
+    console.log(user)
     favorites.push(post);
     axios
-      .put(`/api/users/${props.user._id}/favorite`, { favorites })
+      .put(`/api/users/${props.userProp._id}/favorite`, { favorites })
       .then(res => {
         if (res.data.type === 'error') {
           console.log(`error ${res.data.message}`);
@@ -88,7 +90,7 @@ export const Home = (props: Props) => {
       return post.publicId !== inputPost.publicId;
     });
     axios
-      .put(`/api/users/${props.user._id}/favorite`, { filteredFavorites })
+      .put(`/api/users/${props.userProp._id}/favorite`, { filteredFavorites })
       .then(res => {
         if (res.data.type === 'error') {
           console.log(`error ${res.data.message}`);
@@ -136,7 +138,7 @@ export const Home = (props: Props) => {
         removeFromFavorites={removeFromFavorites}
         refreshPosts={refreshPosts}
         deletePost={deletePost}
-        user={props.user}
+        user={props.userProp}
         posts={feedToggle === FeedOptions.Feed ? posts : favorites}
       />
     </div>

@@ -181,7 +181,6 @@ class Signup extends Component<Props, State> {
 
     return (
       <section>
-        <h1>create a new account</h1>
         <form className='' onSubmit={this.handleSubmit}>
           <div className='input-container'>
             <label className='input-label' htmlFor='isCompany'>

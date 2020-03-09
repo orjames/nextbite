@@ -44,7 +44,6 @@ export const Login = (props: Props) => {
   return (
     <section>
       <form onSubmit={handleSubmit}>
-        <h1>login</h1>
         <div className='input-container'>
           <input
             onChange={handleInputChange}
