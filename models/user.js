@@ -1,32 +1,32 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   firstName: {
     type: String,
-    required: [true, 'Hello anonymous, you must enter a First Name'],
-    minlength: [1, 'First Name must be between 1 and 99 characters'],
-    maxlength: [99, 'First Name must be between 1 and 99 characters'],
+    required: [true, "Hello anonymous, you must enter a First Name"],
+    minlength: [1, "First Name must be between 1 and 99 characters"],
+    maxlength: [99, "First Name must be between 1 and 99 characters"],
   },
   lastName: {
     type: String,
-    required: [true, 'Hello anonymous, you must enter a Last Name'],
-    minlength: [1, 'Last Name must be between 1 and 99 characters'],
-    maxlength: [99, 'Last Name must be between 1 and 99 characters'],
+    required: [true, "Hello anonymous, you must enter a Last Name"],
+    minlength: [1, "Last Name must be between 1 and 99 characters"],
+    maxlength: [99, "Last Name must be between 1 and 99 characters"],
   },
   password: {
     type: String,
-    required: [true, 'You must enter a password!'],
-    minlength: [2, 'password must be between 10 and 128 characters'],
-    maxlength: [128, 'password must be between 10 and 128 characters'],
+    required: [true, "You must enter a password!"],
+    minlength: [2, "password must be between 10 and 128 characters"],
+    maxlength: [128, "password must be between 10 and 128 characters"],
   },
   email: {
     type: String,
-    required: [true, 'You must enter a valid email!'],
-    minlength: [5, 'email must be between 5 and 99 characters'],
-    maxlength: [99, 'email must be between 5 and 99 characters'],
+    required: [true, "You must enter a valid email!"],
+    minlength: [5, "email must be between 5 and 99 characters"],
+    maxlength: [99, "email must be between 5 and 99 characters"],
     validate: {
       validator: function(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -36,21 +36,25 @@ const userSchema = new Schema({
     },
   },
   isCompany: {
-    type: String,
-    required: [true, 'Please indicate if you are a company or user'],
+    type: Boolean,
+    required: [true, "Please indicate if you are a company or user"],
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false,
   },
   company: {
     type: String,
-    minlength: [0, 'company name must be between 0 and 128 characters'],
-    maxlength: [128, 'company name must be between 10 and 128 characters'],
+    minlength: [0, "company name must be between 0 and 128 characters"],
+    maxlength: [128, "company name must be between 10 and 128 characters"],
     required: false,
   },
-  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
-  favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
+  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
+  favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
 });
 
 // this returns an object without a password
-userSchema.set('toObject', {
+userSchema.set("toObject", {
   transform: function(doc, ret, options) {
     // doc is the original mongoose object from database, ret is the thing that has been converted to json (means you don't have to stringify it)
     let returnJson = {
@@ -59,6 +63,7 @@ userSchema.set('toObject', {
       firstName: ret.firstName,
       lastName: ret.lastName,
       isCompany: ret.isCompany,
+      isAdmin: ret.isAdmin,
       company: ret.company,
       posts: ret.posts,
       favorites: ret.favorites,
@@ -73,7 +78,7 @@ userSchema.methods.authenticated = function(password) {
 };
 
 // checks if new user than hashes password before it writes it into the database
-userSchema.pre('save', function(next) {
+userSchema.pre("save", function(next) {
   if (this.isNew) {
     //if this.isNew means if this is a new user
     let hash = bcrypt.hashSync(this.password, 12);
@@ -82,4 +87,4 @@ userSchema.pre('save', function(next) {
   next();
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);
