@@ -26,10 +26,11 @@ export const Home = (props: Props) => {
       })
       .then(() => {
         axios.get(`/api/users/${props.userProp._id}`).then((res: any) => {
-          setFavorites(res.data.favorites)
+          console.log(res.data.favorites)
+          setFavorites(res.data.favorites ? res.data.favorites : [])
         });
       });
-  })
+  }, [])
 
   // change feed to view favorites or feed
   const changeFeed = (feedChange: FeedOptions) => {
@@ -129,7 +130,7 @@ export const Home = (props: Props) => {
     );
   };
   return (
-    <div className='app-div'>
+    <div className='app-home-div'>
       {generateToggle(feedToggle)}
       <Feed
         feedToggle={feedToggle}

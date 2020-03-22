@@ -80,13 +80,6 @@ export const Login = (props: Props) => {
           </div>
         </button>
       </form>
-      <form onSubmit={e => handleSubmit(e, 'guestuser@gmail.com', 'password123')}>
-        <button className='none' type='submit' value='login'>
-          <div className='container-2'>
-            <div className='btn btn-two'>guest</div>
-          </div>
-        </button>
-      </form>
       <div>{message}</div>
     </section>
   );

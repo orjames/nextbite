@@ -26,6 +26,9 @@ const App = () => {
   useEffect(() => {
     checkForLocalToken();
     getLocation();
+
+    return () => {
+    };
   }, []);
 
   const checkForLocalToken = () => {
@@ -137,7 +140,7 @@ const App = () => {
   const generateRouterOrLogin = (user: UserInterface | null) => {
     if (user) {
       return (
-        <div className="app-div">
+        <div className="app-inner-div">
           <Router>
             {generateNavigation(user)}
             <Route
@@ -174,7 +177,7 @@ const App = () => {
       );
     } else {
       return (
-        <div className='app-div'>
+        <div className='app-inner-div'>
           <LandingPage liftTokenToState={liftTokenToState} />
         </div>
       );

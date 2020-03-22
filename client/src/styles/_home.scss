@@ -1,6 +1,6 @@
 $border-radius-size: 10px;
 
-.app-div {
+.app-inner-div {
   .home-icon {
     height: 2.3rem;
     width: 2.3rem;
@@ -46,4 +46,8 @@ $border-radius-size: 10px;
       }
     }
   }
+}
+
+.app-home-div {
+  margin-top: 9rem;
 }

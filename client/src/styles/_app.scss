@@ -10,6 +10,10 @@ $orange: rgb(166, 79, 3);
 $yellow: rgb(242, 159, 5);
 $pink: rgb(216, 83, 183);
 
+#root {
+  height: 100vh;
+}
+
 /* General App CSS */
 body {
   margin: 0;
@@ -50,6 +54,12 @@ button:active {
     font-family: "Handlee", cursive;
     display: flex;
     justify-content: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 999;
+    background-color: $white;
 
     .app-title {
       font-family: "Handlee", cursive;
@@ -63,10 +73,23 @@ button:active {
     }
   }
 
-  .app-div {
+  .app-inner-div {
     .top-nav {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: center;
+      position: fixed;
+      left: 0;
+      top: 5.5rem;
+      right: 0;
+      z-index: 999;
+      background-color: $white;
+
+      :first-child {
+        margin-right: 1rem;
+      }
+      :last-child {
+        margin-left: 1rem;
+      }
     }
     .link {
       color: $pink;

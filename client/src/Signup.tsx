@@ -205,5 +205,3 @@ export const Signup = (props: Props) => {
     </section>
   );
 }
-
-export default Signup;
