@@ -14,7 +14,7 @@
     "@types/react-fontawesome": "^1.6.4",
     "@types/react-notify-toast": "^0.5.2",
     "@types/react-router-dom": "^4.3.2",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "cloudinary-react": "^1.1.0",
     "compass": "^0.1.1",
     "compass-importer": "^0.4.1",
